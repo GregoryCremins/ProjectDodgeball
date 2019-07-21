@@ -6,21 +6,47 @@ using UnityEngine.UI;
 public class GridRenderer : MonoBehaviour {
 
     public GameObject myGridSpace;
-    private GridLayoutGroup myGrid;
+    public RectTransform myRTransform;
+    private RectTransform tempRectTransform;
+    public GameObject[,] myRenderedGrid;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+        myRenderedGrid = new GameObject[6,3];
+        /* get the size of the image */
+        myRTransform = gameObject.GetComponent<RectTransform>();
         /* render the grid */
-        myGrid = gameObject.GetComponent<GridLayoutGroup>();
-        for(int i = 0; i < 9; i++)
+        float width = myRTransform.rect.width;
+        float height = myRTransform.rect.height;
+        //Debug.Log(width);
+        //Debug.Log(height);
+        float heightThird = height / 3;
+        float widthDiv6 = width / 6;
+        int indexX = 0;
+        int indexY = 0;
+        /* render grid */
+        for (double y = 0; y < height; y = y + heightThird)
         {
-            GameObject newGridSpace = Instantiate(myGridSpace);
-            newGridSpace.transform.SetParent(transform);
-            
+            indexX = 0;
+            for (double x = (-width / 2); x < (width / 2) - 1; x= x + widthDiv6) 
+            {
+                GameObject myNewObj =  Instantiate(myGridSpace,gameObject.transform);
+                myNewObj.transform.localPosition = new Vector3((float)x,(float)y);
+                tempRectTransform = myNewObj.GetComponent<RectTransform>();
+                tempRectTransform.sizeDelta = new Vector2(widthDiv6, heightThird);
+
+                /* add grid to my rendered grid*/
+                //Debug.Log(indexX + ", " + indexY);
+                myRenderedGrid[indexX,indexY] = myNewObj;
+                //Debug.Log(myNewObj.transform.position);
+                indexX++;
+            }
+            indexY++;
         }
 
-		
-	}
+    }
+       
 	
 	// Update is called once per frame
 	void Update () {
