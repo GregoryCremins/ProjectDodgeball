@@ -9,6 +9,7 @@ public class GridRenderer : MonoBehaviour {
     public RectTransform myRTransform;
     private RectTransform tempRectTransform;
     public GameObject[,] myRenderedGrid;
+    public bool gridRendered = false;
 
     // Use this for initialization
     void Start()
@@ -44,7 +45,7 @@ public class GridRenderer : MonoBehaviour {
             }
             indexY++;
         }
-
+        gridRendered = true;
     }
        
 	
