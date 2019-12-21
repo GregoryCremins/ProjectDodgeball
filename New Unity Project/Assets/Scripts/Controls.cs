@@ -85,7 +85,12 @@ public class Controls : MonoBehaviour {
     {
         if (currentTarget.GetComponent<Actionable>() != null)
         {
+            Debug.Log("PERFORMING ACTION");
             currentTarget.GetComponent<Actionable>().performAction();
         }
+    }
+    public void BackOption()
+    {
+
     }
 }

@@ -10,6 +10,8 @@ public class InitiativeControlller : MonoBehaviour
     public float IncrementAmount = .01f;
     public bool flash = false;
     public bool waitForColorChange = false;
+    public GameObject playerController;
+    public bool addedToWaiting;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +22,11 @@ public class InitiativeControlller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (mySlider.value >= 1 && addedToWaiting == false)
+        {
+            addedToWaiting = true;
+            playerController.GetComponent<ActivePlayerController>().AddToWaiting(this.gameObject);
+        }
         
     }
 
@@ -58,5 +65,11 @@ public class InitiativeControlller : MonoBehaviour
             flash = false;
         }
         waitForColorChange = false;
+    }
+
+    public void ResetInitiative()
+    {
+        mySlider.value = 0;
+        addedToWaiting = false;
     }
 }

@@ -36,7 +36,7 @@ public class DodgeballSpawn : MonoBehaviour
         foreach (GameObject g in myBalls)
         {
             Transform t = myGridScript.myRenderedGrid[3, yOffset].transform;
-            Debug.Log(t.position);
+            //Debug.Log(t.position);
             Vector3 localOffset = new Vector3(0f, -2f, -20f);
             Vector3 spawnPosition = t.position + localOffset;
             GameObject myNewPlayer = Instantiate(g, spawnPosition, transform.rotation);

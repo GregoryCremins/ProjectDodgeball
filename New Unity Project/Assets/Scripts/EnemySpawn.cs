@@ -36,7 +36,7 @@ public class EnemySpawn : MonoBehaviour
         foreach (GameObject g in myEnemies)
         {
             Transform t = myGridScript.myRenderedGrid[5, yOffset].transform;
-            Debug.Log(t.position);
+            //Debug.Log(t.position);
             Vector3 localOffset = new Vector3(1f, -2f, -20f);
             Vector3 spawnPosition = t.position + localOffset;
             GameObject myNewEnemy = Instantiate(g, spawnPosition, transform.rotation);
