@@ -68,8 +68,6 @@ public class ActivePlayerController : MonoBehaviour
     {
         
         Transform t = gridObject.transform;
-        Debug.Log(t.position);
-        Debug.Log(currentPlayerTarget.transform.position);
         Vector3 localOffset = new Vector3(1f, -2f, -20f);
         Vector3 spawnPosition = t.position + localOffset;
         //currentPlayerTarget.transform.position = spawnPosition;

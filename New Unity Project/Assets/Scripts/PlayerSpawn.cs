@@ -36,7 +36,7 @@ public class PlayerSpawn : MonoBehaviour
         foreach (GameObject g in myPlayers)
         {
             Transform t = myGridScript.myRenderedGrid[0, yOffset].transform;
-            Debug.Log(t.position);
+            //Debug.Log(t.position);
             Vector3 localOffset = new Vector3(1f, -2f, -20f);
             Vector3 spawnPosition = t.position + localOffset;
             GameObject myNewPlayer = Instantiate(g, spawnPosition, transform.rotation);

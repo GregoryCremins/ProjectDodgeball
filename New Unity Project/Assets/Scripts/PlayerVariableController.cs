@@ -9,6 +9,8 @@ public class PlayerVariableController : MonoBehaviour
     public float Player2Energy = 100;
     public float Player3Energy = 100;
 
+    public int[] hasBall = new int[] { -1, -1, -1 };
+
     // Start is called before the first frame update
     void Start()
     {

@@ -49,7 +49,9 @@ public class BoardStateController : MonoBehaviour
     public GameObject playerControllerObject;
     public GameObject ballControllerObject;
     public GameObject myMovementReticle;
+    public GameObject myEnemyTargetReticle;
     public GameObject myControlsObject;
+    public GameObject myEnemyControllerObject;
     public bool grabbedGrid;
 
     // Start is called before the first frame update
@@ -66,7 +68,8 @@ public class BoardStateController : MonoBehaviour
         {
             grabbedGrid = true;
             myMovementReticle = gridRenderSystem.GetComponent<GridRenderer>().activeTargetReticle;
-            for(int x = 0; x < 6; x++)
+            myEnemyTargetReticle = gridRenderSystem.GetComponent<GridRenderer>().activeEnemyReticle;
+            for (int x = 0; x < 6; x++)
             {
                 for(int y =0; y < 3; y++)
                 {
@@ -109,7 +112,7 @@ public class BoardStateController : MonoBehaviour
             }
         }
     }
-
+    //player positionals
     public Vector3 getPositionOfPlayer(int playerNumber)
     {
         for (int x = 0; x < 6; x++)
@@ -153,9 +156,52 @@ public class BoardStateController : MonoBehaviour
         return -1;
     }
 
+    //enemy Positionals
+    public Vector3 getPositionOfEnemy(int enemyNumber)
+    {
+        for (int x = 0; x < 6; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                if (myGrid[x, y].enemyNumberHere == enemyNumber)
+                {
+                    return myGrid[x, y].gameSpace;
+                }
+            }
+        }
+        return new Vector3(-10000, -10000, -10000);
+    }
+    public int getGridXOfEnemy(int enemyNumber)
+    {
+        for (int x = 0; x < 6; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                if (myGrid[x, y].enemyNumberHere == enemyNumber)
+                {
+                    return x;
+                }
+            }
+        }
+        return -1;
+    }
+    public int getGridYOfEnemy(int enemyNumber)
+    {
+        for (int x = 0; x < 6; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                if (myGrid[x, y].enemyNumberHere == enemyNumber)
+                {
+                    return y;
+                }
+            }
+        }
+        return -1;
+    }
+
     public void EmptySpace(int x, int y)
     {
-        Debug.Log("calling empty space on:" + x + ", " + y);
         myGrid[x,y].occupied = false;
         myGrid[x, y].ballNumberHere = -1;
         myGrid[x, y].playerNumberHere = -1;
@@ -172,5 +218,35 @@ public class BoardStateController : MonoBehaviour
         playerControllerObject.GetComponent<ActivePlayerController>().movePlayer(gridRenderSystem.GetComponent<GridRenderer>().myRenderedGrid[newX,newY]);
         myGrid[newX, newY].occupied = true;
         myGrid[newX, newY].playerNumberHere = playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber;
+        
+    }
+
+    public void checkBallPickup (int playerNumber)
+    {
+        Debug.Log("JOZE");
+        int holdingBall = playerControllerObject.GetComponent<PlayerVariableController>().hasBall[playerNumber];
+        if (holdingBall < 0)
+        {
+            int myCurrentX = getGridXOfPlayer(playerNumber);
+            int myCurrentY = getGridYOfPlayer(playerNumber);
+            Debug.Log(myGrid[myCurrentX, myCurrentY].ballNumberHere);
+            if (myGrid[myCurrentX,myCurrentY].ballNumberHere >= 0)
+            {
+                int ballNumber = myGrid[myCurrentX, myCurrentY].ballNumberHere;
+                playerControllerObject.GetComponent<PlayerVariableController>().hasBall[playerNumber] = ballNumber;
+                ballControllerObject.GetComponent<BallController>().PickUpBall(playerNumber, ballNumber);
+                for (int x = 0; x < 6; x++)
+                {
+                    for (int y = 0; y < 3; y++)
+                    {
+                        if (myGrid[x, y].ballNumberHere == ballNumber)
+                        {
+                            myGrid[x, y].ballNumberHere = -1;
+                        }
+                    }
+                }
+
+            }
+        }
     }
 }
