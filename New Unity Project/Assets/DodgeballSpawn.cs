@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySpawn : MonoBehaviour
+public class DodgeballSpawn : MonoBehaviour
 {
     public GameObject MyGridObject;
     public GridRenderer myGridScript;
-    private bool RenderTeam = false;
-    public List<GameObject> myEnemies;
-    public List<GameObject> activeEnemies;
+    private bool RenderedBalls = false;
+    public List<GameObject> myBalls;
+    public List<GameObject> activeBalls;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,28 +19,28 @@ public class EnemySpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while (RenderTeam != true)
+        while (RenderedBalls != true)
         {
             if (myGridScript.gridRendered == true)
             {
-                RenderEnemies();
-                RenderTeam = true;
+                RenderBalls();
+                RenderedBalls = true;
             }
 
         }
     }
 
-    public void RenderEnemies()
+    public void RenderBalls()
     {
         int yOffset = 0;
-        foreach (GameObject g in myEnemies)
+        foreach (GameObject g in myBalls)
         {
-            Transform t = myGridScript.myRenderedGrid[5, yOffset].transform;
+            Transform t = myGridScript.myRenderedGrid[3, yOffset].transform;
             Debug.Log(t.position);
-            Vector3 localOffset = new Vector3(1f, -2f, -20f);
+            Vector3 localOffset = new Vector3(0f, -2f, -20f);
             Vector3 spawnPosition = t.position + localOffset;
-            GameObject myNewEnemy = Instantiate(g, spawnPosition, transform.rotation);
-            activeEnemies.Add(myNewEnemy);
+            GameObject myNewPlayer = Instantiate(g, spawnPosition, transform.rotation);
+            activeBalls.Add(myNewPlayer);
             yOffset++;
         }
     }
