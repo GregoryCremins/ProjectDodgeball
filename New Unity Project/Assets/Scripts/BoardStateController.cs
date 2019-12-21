@@ -30,15 +30,21 @@ public class BoardStateController : MonoBehaviour
             {
                 occupied = true;
                 playerNumberHere = value;
+                ballNumberHere = -1;
+                enemyNumberHere = -1;
             }
             if(whatsHere == "Enemy")
             {
                 occupied = true;
                 enemyNumberHere = value;
+                ballNumberHere = -1;
+                playerNumberHere = -1;
             }
             if(whatsHere == "Ball")
             {
                 ballNumberHere = value;
+                playerNumberHere = -1;
+                enemyNumberHere = -1;
             }
         }
 
@@ -52,6 +58,7 @@ public class BoardStateController : MonoBehaviour
     public GameObject myEnemyTargetReticle;
     public GameObject myControlsObject;
     public GameObject myEnemyControllerObject;
+    public GameObject ballProjectilePrefab;
     public bool grabbedGrid;
 
     // Start is called before the first frame update
@@ -129,7 +136,7 @@ public class BoardStateController : MonoBehaviour
     }
     public int getGridXOfPlayer(int playerNumber)
     {
-        for (int x = 0; x < 6; x++)
+        for (int x = 0; x < 3; x++)
         {
             for (int y = 0; y < 3; y++)
             {
@@ -143,7 +150,7 @@ public class BoardStateController : MonoBehaviour
     }
     public int getGridYOfPlayer(int playerNumber)
     {
-        for (int x = 0; x < 6; x++)
+        for (int x = 0; x < 3; x++)
         {
             for (int y = 0; y < 3; y++)
             {
@@ -159,7 +166,7 @@ public class BoardStateController : MonoBehaviour
     //enemy Positionals
     public Vector3 getPositionOfEnemy(int enemyNumber)
     {
-        for (int x = 0; x < 6; x++)
+        for (int x = 3; x < 6; x++)
         {
             for (int y = 0; y < 3; y++)
             {
@@ -173,7 +180,7 @@ public class BoardStateController : MonoBehaviour
     }
     public int getGridXOfEnemy(int enemyNumber)
     {
-        for (int x = 0; x < 6; x++)
+        for (int x = 3; x < 6; x++)
         {
             for (int y = 0; y < 3; y++)
             {
@@ -187,7 +194,7 @@ public class BoardStateController : MonoBehaviour
     }
     public int getGridYOfEnemy(int enemyNumber)
     {
-        for (int x = 0; x < 6; x++)
+        for (int x = 3; x < 6; x++)
         {
             for (int y = 0; y < 3; y++)
             {
@@ -248,5 +255,11 @@ public class BoardStateController : MonoBehaviour
 
             }
         }
+    }
+
+    public void ShootBall(Vector3 startPoint, Vector3 endpoint)
+    {
+        GameObject bullet = Instantiate(ballProjectilePrefab, startPoint, Quaternion.identity) as GameObject;
+        bullet.GetComponent<TrackShot>().target = endpoint;
     }
 }

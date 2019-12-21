@@ -2025,6 +2025,7 @@ MonoBehaviour:
   myEnemyTargetReticle: {fileID: 0}
   myControlsObject: {fileID: 2060906161}
   myEnemyControllerObject: {fileID: 1644330895}
+  ballProjectilePrefab: {fileID: 0}
   grabbedGrid: 0
 --- !u!4 &732985663
 Transform:
@@ -2763,6 +2764,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901967241}
   m_CullTransparentMesh: 0
+--- !u!1001 &954636766
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.026
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.054
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022832, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022834, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3930099322794022837, guid: 83be0ed22ca62e148a23f21f13bf2b3d,
+        type: 3}
+      propertyPath: m_Name
+      value: BallProjectile
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3930099322794022834, guid: 83be0ed22ca62e148a23f21f13bf2b3d, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 83be0ed22ca62e148a23f21f13bf2b3d, type: 3}
 --- !u!1 &1082921974
 GameObject:
   m_ObjectHideFlags: 0

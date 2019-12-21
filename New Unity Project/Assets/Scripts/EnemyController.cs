@@ -89,7 +89,9 @@ public class EnemyController : MonoBehaviour
             GameObject myNewEnemy = Instantiate(g, spawnPosition, transform.rotation);
             activeEnemies.Add(myNewEnemy);
             enemyList.Add(new Enemy(5, yOffset));
+            Debug.Log("ENEMY :" + yOffset + " : " + enemyList[yOffset].xPosn);
             yOffset++;
+           
         }
 
 

@@ -25,6 +25,7 @@ public class Movable2 : MonoBehaviour
         transform.position = myBoardState.getPositionOfEnemy(0);
         xCoord = myBoardState.getGridXOfEnemy(0);
         yCoord = myBoardState.getGridYOfEnemy(0);
+        Debug.Log("HAAA: " + xCoord);
     }
 
     // Update is called once per frame
@@ -77,8 +78,12 @@ public class Movable2 : MonoBehaviour
     {
         
     }
-
-    public void PutPersonHere()
+    public void ThrowBall()
     {
+
+
+        //reset control target
+        myBoardState.myControlsObject.GetComponent<Controls>().currentTarget = myBoardState.myControlsObject.GetComponent<Controls>().startTarget;
+        gameObject.SetActive(false);
     }
 }
