@@ -39,6 +39,11 @@ public class Controls : MonoBehaviour {
                 currentTarget = myTestSubject;
             }
         }
+
+        if(currentTarget.GetComponent<Movable>() != null)
+        {
+            currentTarget.GetComponent<Movable>().MoveUp();
+        }
         
     }
     public void MoveDownOption()
@@ -53,6 +58,10 @@ public class Controls : MonoBehaviour {
                 currentTarget = myTestSubject;
             }
         }
+        if (currentTarget.GetComponent<Movable>() != null)
+        {
+            currentTarget.GetComponent<Movable>().MoveDown();
+        }
     }
     public void MoveLeftOption()
     {
@@ -65,6 +74,10 @@ public class Controls : MonoBehaviour {
                 currentTarget.GetComponent<Controllable>().UnHighlight();
                 currentTarget = myTestSubject;
             }
+        }
+        if (currentTarget.GetComponent<Movable>() != null)
+        {
+            currentTarget.GetComponent<Movable>().MoveLeft();
         }
     }
     public void MoveRightOption()
@@ -79,6 +92,10 @@ public class Controls : MonoBehaviour {
                 currentTarget = myTestSubject;
             }
         }
+        if (currentTarget.GetComponent<Movable>() != null)
+        {
+            currentTarget.GetComponent<Movable>().MoveRight();
+        }
     }
 
     public void AdvanceOption()
@@ -87,6 +104,14 @@ public class Controls : MonoBehaviour {
         {
             Debug.Log("PERFORMING ACTION");
             currentTarget.GetComponent<Actionable>().performAction();
+        }
+        else
+        {
+            if (currentTarget.GetComponent<Movable>() != null)
+            {
+                Debug.Log("PUT EM HERE");
+                currentTarget.GetComponent<Movable>().PutPersonHere();
+            }
         }
     }
     public void BackOption()

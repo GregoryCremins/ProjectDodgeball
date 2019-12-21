@@ -6,10 +6,12 @@ using UnityEngine.UI;
 public class GridRenderer : MonoBehaviour {
 
     public GameObject myGridSpace;
+    public GameObject moveTargetReticle;
     public RectTransform myRTransform;
     private RectTransform tempRectTransform;
     public GameObject[,] myRenderedGrid;
     public bool gridRendered = false;
+    public GameObject activeTargetReticle;
 
     // Use this for initialization
     void Start()
@@ -45,6 +47,12 @@ public class GridRenderer : MonoBehaviour {
             }
             indexY++;
         }
+        activeTargetReticle = Instantiate(moveTargetReticle, gameObject.transform);
+        //activeTargetReticle.transform.localPosition = new Vector3(2,0);
+        tempRectTransform = activeTargetReticle.GetComponent<RectTransform>();
+        tempRectTransform.sizeDelta = new Vector2(widthDiv6, heightThird);
+        activeTargetReticle.SetActive(false);
+
         gridRendered = true;
     }
        
@@ -53,4 +61,9 @@ public class GridRenderer : MonoBehaviour {
 	void Update () {
 		
 	}
+
+    public void ActivateReticle()
+    {
+        activeTargetReticle.SetActive(true);
+    }
 }

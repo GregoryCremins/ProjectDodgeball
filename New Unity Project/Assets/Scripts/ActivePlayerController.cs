@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class ActivePlayerController : MonoBehaviour
 {
-    public int ActivePlayer;
     public List<GameObject> waitingPlayerCards;
     public int currentPlayerNumber;
     public GameObject currentPlayerTarget;
@@ -13,7 +12,7 @@ public class ActivePlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentPlayerNumber = -1;
     }
 
     // Update is called once per frame
@@ -27,11 +26,15 @@ public class ActivePlayerController : MonoBehaviour
             waitingPlayerCards.RemoveAt(0);
             HighlightPlayerTile();
         }
+        if (currentPlayerTarget != null)
+        {
+            currentPlayerTarget.transform.position = new Vector3(100000, 10000);
+        }
     }
 
     public void MovePlayerTowards(Vector3 newPoint)
     {
-        currentPlayerTarget.transform.position = Vector3.MoveTowards(currentPlayerTarget.transform.position, newPoint, Time.deltaTime * .01f);
+        //currentPlayerTarget.transform.position = Vector3.MoveTowards(currentPlayerTarget.transform.position, newPoint, Time.deltaTime * .01f);
     }
 
     public void HighlightPlayerTile()
@@ -59,5 +62,18 @@ public class ActivePlayerController : MonoBehaviour
         UnhighlightPlayerTile();
         currentNamePlate.GetComponent<InitiativeControlller>().ResetInitiative();
         ResetStuff();
+    }
+
+    public void movePlayer(GameObject gridObject)
+    {
+        
+        Transform t = gridObject.transform;
+        Debug.Log(t.position);
+        Debug.Log(currentPlayerTarget.transform.position);
+        Vector3 localOffset = new Vector3(1f, -2f, -20f);
+        Vector3 spawnPosition = t.position + localOffset;
+        //currentPlayerTarget.transform.position = spawnPosition;
+        gameObject.GetComponent<PlayerSpawn>().activePlayers[currentPlayerNumber].transform.position = spawnPosition;
+        //currentPlayerTarget.transform.position = new Vector3(15, 15);
     }
 }
