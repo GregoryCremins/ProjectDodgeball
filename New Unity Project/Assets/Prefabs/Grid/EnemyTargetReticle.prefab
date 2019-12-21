@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 114206169242402684}
   - component: {fileID: 114358200635688852}
   - component: {fileID: 114643135006187852}
-  - component: {fileID: 5487930646302220080}
+  - component: {fileID: 1304664802880105537}
   m_Layer: 5
   m_Name: EnemyTargetReticle
   m_TagString: Untagged
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!114 &5487930646302220080
+--- !u!114 &1304664802880105537
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1411352435982350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af35e708dfcfdc24fa1b94076193e478, type: 3}
+  m_Script: {fileID: 11500000, guid: b4c66d00eb2648f4d9ce88c196e7ff38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controlsObject: {fileID: 0}
@@ -127,3 +127,4 @@ MonoBehaviour:
   myBoardState: {fileID: 0}
   xCoord: 0
   yCoord: 0
+  targetEnemy: 0

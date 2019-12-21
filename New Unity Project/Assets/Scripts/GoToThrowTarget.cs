@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoToThrowTarget : MonoBehaviour,Actionable
+public class GoToThrowTarget : MonoBehaviour
 {
     public GameObject myBoardStateObject;
     public BoardStateController myBoardState;
 
-    public void performAction()
+    public void PerformAction()
     {
 
         myBoardState.myEnemyTargetReticle.SetActive(true);
-        myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().Activate();
+        
         myBoardState.myControlsObject.GetComponent<Controls>().currentTarget = myBoardState.myEnemyTargetReticle;
-        myBoardState.myMovementReticle.GetComponent<Movable>().backOption = gameObject;
-        myBoardState.myMovementReticle.GetComponent<Movable>().myBoardState = myBoardState;
+        myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().backOption = gameObject;
+        myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().myBoardState = myBoardState;
+        myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().Activate();
+        Debug.Log(myBoardState);
     }
 
     // Start is called before the first frame update

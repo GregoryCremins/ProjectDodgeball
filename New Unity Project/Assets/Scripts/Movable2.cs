@@ -14,10 +14,10 @@ public class Movable2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        transform.position = myBoardState.getPositionOfEnemy(0);
-        xCoord = myBoardState.getGridXOfEnemy(0);
-        yCoord = myBoardState.getGridYOfEnemy(0);
-        Debug.Log("X: " + xCoord + " Y: " + yCoord);
+       // transform.position = myBoardState.getPositionOfEnemy(0);
+        //xCoord = myBoardState.getGridXOfEnemy(0);
+        //yCoord = myBoardState.getGridYOfEnemy(0);
+        //Debug.Log("X: " + xCoord + " Y: " + yCoord);
     }
 
     public void Activate()

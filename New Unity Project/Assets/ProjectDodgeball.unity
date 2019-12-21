@@ -691,6 +691,7 @@ GameObject:
   - component: {fileID: 204836508}
   - component: {fileID: 204836507}
   - component: {fileID: 204836510}
+  - component: {fileID: 204836511}
   m_Layer: 5
   m_Name: Throw/PickUpOption
   m_TagString: Untagged
@@ -781,6 +782,20 @@ MonoBehaviour:
   currentOption: PickUp
   myTMP: {fileID: 638944128}
   myText: {fileID: 0}
+--- !u!114 &204836511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204836505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc0ed06bc7fd71a4098d3bc5b5a88485, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBoardStateObject: {fileID: 732985661}
+  myBoardState: {fileID: 0}
 --- !u!1 &247326684
 GameObject:
   m_ObjectHideFlags: 0
@@ -2007,7 +2022,9 @@ MonoBehaviour:
   playerControllerObject: {fileID: 247326684}
   ballControllerObject: {fileID: 2119824507}
   myMovementReticle: {fileID: 0}
+  myEnemyTargetReticle: {fileID: 0}
   myControlsObject: {fileID: 2060906161}
+  myEnemyControllerObject: {fileID: 1644330895}
   grabbedGrid: 0
 --- !u!4 &732985663
 Transform:
@@ -2083,6 +2100,9 @@ MonoBehaviour:
   myRTransform: {fileID: 0}
   gridRendered: 0
   activeTargetReticle: {fileID: 0}
+  enemyReticlePrefab: {fileID: 1411352435982350, guid: b2f5992a58c5c6d4ba3e5fd038f7c691,
+    type: 3}
+  activeEnemyReticle: {fileID: 0}
 --- !u!114 &739669935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,7 +2526,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 26.9, y: 5.4}
+  m_AnchoredPosition: {x: 26.899994, y: 5.4}
   m_SizeDelta: {x: 0.7200012, y: 0.72}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &827297355
@@ -2875,7 +2895,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: -5.000002, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1228172359
@@ -3197,7 +3217,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.96, y: 0}
+  m_AnchoredPosition: {x: 4.959999, y: 0}
   m_SizeDelta: {x: 19.92, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1354157209
@@ -3446,6 +3466,7 @@ MonoBehaviour:
   - {fileID: 7147537910379768574, guid: 18e5a0b63e6512e4584ce6419b76c546, type: 3}
   - {fileID: 7147537910379768574, guid: 18e910e3ce8512c4cad2221fc5b98e2e, type: 3}
   activeEnemies: []
+  enemyList: []
 --- !u!4 &1644330897
 Transform:
   m_ObjectHideFlags: 0
@@ -3495,7 +3516,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 22.8, y: -0.36001}
+  m_AnchoredPosition: {x: 22.800003, y: -0.36001}
   m_SizeDelta: {x: 0.7200012, y: 0.72}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1751562937
@@ -4289,7 +4310,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 23.6, y: 3.2}
+  m_AnchoredPosition: {x: 23.600006, y: 3.2}
   m_SizeDelta: {x: 0.7200012, y: 0.72}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1949040467
@@ -4414,7 +4435,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 4.96, y: 0}
+  m_AnchoredPosition: {x: 4.959999, y: 0}
   m_SizeDelta: {x: 19.92, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1956919900

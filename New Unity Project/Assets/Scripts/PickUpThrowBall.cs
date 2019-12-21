@@ -6,18 +6,20 @@ public class PickUpThrowBall : MonoBehaviour,Actionable
 {
     public BoardStateController myBoardState;
     public GameObject myBoardStateObject;
-    public string currentOption = "PickUp";
+    public string currentOption = "Pick Up";
     public GameObject myTMP;
     public TextMeshProUGUI myText;
     public void performAction()
     {
-        if(currentOption == "PickUp")
+        Debug.Log("ASASASD");
+        if (currentOption == "Pick Up")
         {
+            Debug.Log("PICK IT UP");
             myBoardState.checkBallPickup(myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber);
         }
         if(currentOption == "Throw")
         {
-           
+            gameObject.GetComponent<GoToThrowTarget>().PerformAction();
         }
         
     }
@@ -37,7 +39,7 @@ public class PickUpThrowBall : MonoBehaviour,Actionable
 
     private void FixedUpdate()
     {
-        if (myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().hasBall[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber] >= 0)
+        if (myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >=0 && myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().hasBall[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber] >= 0)
         {
             myText.text = "Throw";
             currentOption = "Throw";
