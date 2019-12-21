@@ -13,6 +13,9 @@ public class GridRenderer : MonoBehaviour {
     public bool gridRendered = false;
     public GameObject activeTargetReticle;
 
+    public GameObject enemyReticlePrefab;
+    public GameObject activeEnemyReticle;
+
     // Use this for initialization
     void Start()
     {
@@ -52,6 +55,13 @@ public class GridRenderer : MonoBehaviour {
         tempRectTransform = activeTargetReticle.GetComponent<RectTransform>();
         tempRectTransform.sizeDelta = new Vector2(widthDiv6, heightThird);
         activeTargetReticle.SetActive(false);
+
+        activeEnemyReticle = Instantiate(enemyReticlePrefab, gameObject.transform);
+        //activeTargetReticle.transform.localPosition = new Vector3(2,0);
+        tempRectTransform = activeEnemyReticle.GetComponent<RectTransform>();
+        tempRectTransform.sizeDelta = new Vector2(widthDiv6, heightThird);
+        activeEnemyReticle.SetActive(false);
+
 
         gridRendered = true;
     }

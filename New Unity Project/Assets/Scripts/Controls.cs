@@ -79,6 +79,10 @@ public class Controls : MonoBehaviour {
         {
             currentTarget.GetComponent<Movable>().MoveLeft();
         }
+        if (currentTarget.GetComponent<Movable2>() != null)
+        {
+            currentTarget.GetComponent<Movable2>().MoveLeft();
+        }
     }
     public void MoveRightOption()
     {
@@ -96,20 +100,23 @@ public class Controls : MonoBehaviour {
         {
             currentTarget.GetComponent<Movable>().MoveRight();
         }
+        if (currentTarget.GetComponent<Movable2>() != null)
+        {
+            currentTarget.GetComponent<Movable2>().MoveRight();
+
+        }
     }
 
     public void AdvanceOption()
     {
         if (currentTarget.GetComponent<Actionable>() != null)
         {
-            Debug.Log("PERFORMING ACTION");
             currentTarget.GetComponent<Actionable>().performAction();
         }
         else
         {
             if (currentTarget.GetComponent<Movable>() != null)
             {
-                Debug.Log("PUT EM HERE");
                 currentTarget.GetComponent<Movable>().PutPersonHere();
             }
         }

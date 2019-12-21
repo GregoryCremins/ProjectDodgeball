@@ -690,8 +690,9 @@ GameObject:
   - component: {fileID: 204836509}
   - component: {fileID: 204836508}
   - component: {fileID: 204836507}
+  - component: {fileID: 204836510}
   m_Layer: 5
-  m_Name: ThrowOption
+  m_Name: Throw/PickUpOption
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -763,6 +764,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 204836505}
   m_CullTransparentMesh: 0
+--- !u!114 &204836510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 204836505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0934df1914776b4d986819f309d5a26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myBoardState: {fileID: 0}
+  myBoardStateObject: {fileID: 732985661}
+  currentOption: PickUp
+  myTMP: {fileID: 638944128}
+  myText: {fileID: 0}
 --- !u!1 &247326684
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +848,7 @@ MonoBehaviour:
   Player1Energy: 100
   Player2Energy: 100
   Player3Energy: 100
+  hasBall: ffffffffffffffffffffffff
 --- !u!114 &247326688
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1770,7 +1789,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Throw
+  m_text: Pick Up
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1839,10 +1858,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 638944130}
-    characterCount: 5
+    characterCount: 7
     spriteCount: 0
-    spaceCount: 0
-    wordCount: 1
+    spaceCount: 1
+    wordCount: 2
     linkCount: 0
     lineCount: 1
     pageCount: 1
@@ -4661,7 +4680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2119824509}
-  - component: {fileID: 2119824508}
+  - component: {fileID: 2119824510}
   m_Layer: 0
   m_Name: Dodgeball Controller
   m_TagString: Untagged
@@ -4669,25 +4688,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2119824508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119824507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21e8486b1d65ced40acfee0acc674877, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MyGridObject: {fileID: 739669932}
-  myGridScript: {fileID: 0}
-  myBalls:
-  - {fileID: 6341633790412720675, guid: 75c88f80fd33e8442a2e7f524d48969f, type: 3}
-  - {fileID: 6341633790412720675, guid: 5da1728e66c5fc046a1539292118a3b6, type: 3}
-  - {fileID: 6341633790412720675, guid: 9957184dbcacd8b4da63be75cbb3ebfc, type: 3}
-  activeBalls: []
 --- !u!4 &2119824509
 Transform:
   m_ObjectHideFlags: 0
@@ -4702,6 +4702,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2119824510
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2119824507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8453b58e1c4369b4fafccae987486ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerControllerObject: {fileID: 247326684}
+  MyGridObject: {fileID: 739669932}
+  myGridScript: {fileID: 0}
+  myBalls:
+  - {fileID: 6341633790412720675, guid: 75c88f80fd33e8442a2e7f524d48969f, type: 3}
+  - {fileID: 6341633790412720675, guid: 5da1728e66c5fc046a1539292118a3b6, type: 3}
+  - {fileID: 6341633790412720675, guid: 9957184dbcacd8b4da63be75cbb3ebfc, type: 3}
+  myActiveBalls: []
+  dodgeBalls: []
 --- !u!1001 &2689585736549499563
 PrefabInstance:
   m_ObjectHideFlags: 0
