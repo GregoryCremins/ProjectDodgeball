@@ -6,8 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Overworld/Scenes/bootstrap.unity
+    guid: bacbb7942d3eafd4ba7367994117e9e5
+  - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
     guid: d92cd5c8267fbdb4cbd7bd97820f33cb
+  - enabled: 1
+    path: Assets/Overworld/Scenes/SampleSceneOverworld.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Overworld/Scenes/SampleScene 2.unity
+    guid: 504a67e099b9d154cb041e3fa7a2b6bb
   - enabled: 1
     path: Assets/Scenes/ProjectDodgeball.unity
     guid: 28c40115778195f408f503ca2189e831

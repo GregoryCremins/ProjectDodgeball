@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Exit
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - OverworldBlockingLayer
   - 
   - 
   - 
@@ -40,4 +42,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: OverworldFloor
+    uniqueID: 2302004363
+    locked: 0
+  - name: OverworldItems
+    uniqueID: 2371054565
+    locked: 0
+  - name: OverworldUnits
+    uniqueID: 1662841025
     locked: 0
