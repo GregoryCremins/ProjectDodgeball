@@ -6,6 +6,7 @@ public class Controls : MonoBehaviour {
 
     public GameObject startTarget;
     public GameObject currentTarget;
+    public GameObject lastMenuTarget;
     public GameObject controllerObject;
     public GameObject mouseAndKeyBoardObject;
     // Use this for initialization
@@ -25,6 +26,10 @@ public class Controls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+        if(lastMenuTarget != currentTarget && currentTarget.GetComponent<Controllable>() != null)
+        {
+            lastMenuTarget = currentTarget;
+        }
 	}
 
     public void  MoveUpOption()
@@ -113,13 +118,15 @@ public class Controls : MonoBehaviour {
         {
             currentTarget.GetComponent<Actionable>().performAction();
         }
-        else
+        else if (currentTarget.GetComponent<Movable>() != null)
         {
-            if (currentTarget.GetComponent<Movable>() != null)
-            {
                 currentTarget.GetComponent<Movable>().PutPersonHere();
-            }
         }
+        else if (currentTarget.GetComponent<Movable2>() != null)
+        {
+                currentTarget.GetComponent<Movable2>().ThrowBall();
+        }
+
     }
     public void BackOption()
     {

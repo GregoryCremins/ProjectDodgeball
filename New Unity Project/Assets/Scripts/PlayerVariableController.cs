@@ -4,17 +4,40 @@ using UnityEngine;
 
 public class PlayerVariableController : MonoBehaviour
 {
+    [System.Serializable]
+    public class Player
+    {
+        public int hasBall;
+        public int energy;
+        public int powerStat;
+        public int enduranceStat;
+        public int agilityStat;
+        public bool eliminated;
 
-    public float Player1Energy = 100;
-    public float Player2Energy = 100;
-    public float Player3Energy = 100;
+        public Player(int myPower, int myEndurance, int myAgility)
+        {
+            hasBall = -1;
+            energy = 100;
+            powerStat = myPower;
+            agilityStat = myAgility;
+        }
+        
+        public int CheckIfHasBall()
+        {
+            return hasBall;
+        }
+    }
 
-    public int[] hasBall = new int[] { -1, -1, -1 };
+    //public int[] hasBall = new int[] { -1, -1, -1 };
+
+    public List<Player> myTeam;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        myTeam.Add(new Player(50, 50, 50));
+        myTeam.Add(new Player(50, 50, 50));
+        myTeam.Add(new Player(50, 50, 50));
     }
 
     // Update is called once per frame
@@ -25,17 +48,13 @@ public class PlayerVariableController : MonoBehaviour
 
     public void addToEnergy(int playerNumber, int addValue)
     {
-        if (playerNumber == 1)
-        {
-            Player1Energy = Player1Energy + addValue;
-        }
-        if (playerNumber == 2)
-        {
-            Player2Energy = Player2Energy + addValue;
-        }
-        if (playerNumber == 3)
-        {
-            Player3Energy = Player3Energy + addValue;
-        }
+        
     }
+
+    public int GetThrowPower(int playerNumber)
+    {
+        return myTeam[playerNumber].powerStat;
+    }
+
+    
 }

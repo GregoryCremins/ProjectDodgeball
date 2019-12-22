@@ -20,16 +20,15 @@ public class ActivePlayerController : MonoBehaviour
     {
         if (waitingPlayerCards.Count > 0 && currentNamePlate == null)
         {
+            
             currentNamePlate = waitingPlayerCards[0];
             currentPlayerNumber = currentNamePlate.GetComponent<NamePlateController>().myPlayerNumber;
             currentPlayerTarget = gameObject.GetComponent<PlayerSpawn>().myPlayers[currentPlayerNumber];
             waitingPlayerCards.RemoveAt(0);
+            Debug.Log("ADDED A DOOGLE " + currentPlayerNumber);
             HighlightPlayerTile();
         }
-        if (currentPlayerTarget != null)
-        {
-            currentPlayerTarget.transform.position = new Vector3(100000, 10000);
-        }
+        
     }
 
     public void MovePlayerTowards(Vector3 newPoint)

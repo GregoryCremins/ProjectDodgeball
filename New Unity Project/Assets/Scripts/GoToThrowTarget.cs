@@ -16,7 +16,6 @@ public class GoToThrowTarget : MonoBehaviour
         myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().backOption = gameObject;
         myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().myBoardState = myBoardState;
         myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().Activate();
-        Debug.Log(myBoardState);
     }
 
     // Start is called before the first frame update

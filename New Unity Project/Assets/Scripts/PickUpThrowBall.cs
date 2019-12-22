@@ -11,13 +11,13 @@ public class PickUpThrowBall : MonoBehaviour,Actionable
     public TextMeshProUGUI myText;
     public void performAction()
     {
-        Debug.Log("ASASASD");
-        if (currentOption == "Pick Up")
+        if (currentOption == "Pick Up" && myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >= 0)
         {
             Debug.Log("PICK IT UP");
+            Debug.Log(myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber);
             myBoardState.checkBallPickup(myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber);
         }
-        if(currentOption == "Throw")
+        if(currentOption == "Throw" && myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >= 0)
         {
             gameObject.GetComponent<GoToThrowTarget>().PerformAction();
         }
@@ -39,7 +39,7 @@ public class PickUpThrowBall : MonoBehaviour,Actionable
 
     private void FixedUpdate()
     {
-        if (myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >=0 && myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().hasBall[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber] >= 0)
+        if (myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >=0 && myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].hasBall >= 0)
         {
             myText.text = "Throw";
             currentOption = "Throw";

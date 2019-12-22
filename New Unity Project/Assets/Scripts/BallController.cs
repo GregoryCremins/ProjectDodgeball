@@ -94,18 +94,32 @@ public class BallController : MonoBehaviour
         
         dodgeBalls[ballNumber].held = true;
         dodgeBalls[ballNumber].playerHolding = playerNumber;
-        Debug.Log("PICK UP BALL" + playerNumber);
         myActiveBalls[ballNumber].SetActive(false);
     }
     public void DropBall(int ballNumber)
     {
         dodgeBalls[ballNumber].held = false;
         dodgeBalls[ballNumber].playerHolding = -1;
-        myActiveBalls[ballNumber].SetActive(true);
         Transform t = myGridScript.myRenderedGrid[dodgeBalls[ballNumber].xPosn, dodgeBalls[ballNumber].yPosn].transform;
         //Debug.Log(t.position);
         Vector3 localOffset = new Vector3(0f, -2f, -20f);
         Vector3 renderPosition = t.position + localOffset;
+        myActiveBalls[ballNumber].SetActive(true);
+    }
+
+    public void DropBall(int ballNumber, int xPosn, int yPosn)
+    {
+        Debug.Log("HA: " + xPosn);
+        Debug.Log("HA: " + yPosn);
+        dodgeBalls[ballNumber].held = false;
+        dodgeBalls[ballNumber].playerHolding = -1;
+        dodgeBalls[ballNumber].setXCoord(xPosn);
+        dodgeBalls[ballNumber].setYCoord(yPosn);
+        Transform t = myGridScript.myRenderedGrid[xPosn,yPosn].transform;
+        //Debug.Log(t.position);
+        Vector3 localOffset = new Vector3(1f, -2f, -20f);
+        Vector3 renderPosition = t.position + localOffset;
+        myActiveBalls[ballNumber].transform.position = renderPosition;
         myActiveBalls[ballNumber].SetActive(true);
     }
 }

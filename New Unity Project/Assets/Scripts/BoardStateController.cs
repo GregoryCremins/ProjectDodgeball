@@ -230,8 +230,7 @@ public class BoardStateController : MonoBehaviour
 
     public void checkBallPickup (int playerNumber)
     {
-        Debug.Log("JOZE");
-        int holdingBall = playerControllerObject.GetComponent<PlayerVariableController>().hasBall[playerNumber];
+        int holdingBall = playerControllerObject.GetComponent<PlayerVariableController>().myTeam[playerNumber].CheckIfHasBall();
         if (holdingBall < 0)
         {
             int myCurrentX = getGridXOfPlayer(playerNumber);
@@ -240,7 +239,7 @@ public class BoardStateController : MonoBehaviour
             if (myGrid[myCurrentX,myCurrentY].ballNumberHere >= 0)
             {
                 int ballNumber = myGrid[myCurrentX, myCurrentY].ballNumberHere;
-                playerControllerObject.GetComponent<PlayerVariableController>().hasBall[playerNumber] = ballNumber;
+                playerControllerObject.GetComponent<PlayerVariableController>().myTeam[playerNumber].hasBall = ballNumber;
                 ballControllerObject.GetComponent<BallController>().PickUpBall(playerNumber, ballNumber);
                 for (int x = 0; x < 6; x++)
                 {
@@ -257,9 +256,63 @@ public class BoardStateController : MonoBehaviour
         }
     }
 
-    public void ShootBall(Vector3 startPoint, Vector3 endpoint)
+    public void dropBall(int ballNumber, int xPosn, int yPosn)
     {
-        GameObject bullet = Instantiate(ballProjectilePrefab, startPoint, Quaternion.identity) as GameObject;
+        Debug.Log(xPosn);
+        Debug.Log(xPosn);
+        myGrid[xPosn, yPosn].ballNumberHere = ballNumber;
+        playerControllerObject.GetComponent<PlayerVariableController>().myTeam[playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].hasBall = -1;
+        ballControllerObject.GetComponent<BallController>().DropBall(ballNumber, xPosn,yPosn);
+    }
+
+    public void ShootBall(Vector3 endpoint)
+    {
+        Transform startPoint = playerControllerObject.GetComponent<ActivePlayerController>().gameObject.GetComponent<PlayerSpawn>().activePlayers[playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].transform;
+        GameObject bullet = Instantiate(ballProjectilePrefab, startPoint.transform.position,Quaternion.identity);
+        bullet.transform.position = new Vector3(bullet.transform.position.x, bullet.transform.position.y);
+        endpoint = new Vector3(endpoint.x, endpoint.y);
         bullet.GetComponent<TrackShot>().target = endpoint;
+    }
+
+    public void CalculateHitOnEnemy(int playerNumber, int enemyNumber)
+    {
+        int throwPower = playerControllerObject.GetComponent<PlayerVariableController>().GetThrowPower(playerNumber);
+        string enemyDefense = myEnemyControllerObject.GetComponent<EnemyController>().GetDefenseOption(enemyNumber);
+        int enemyDefenseValue = myEnemyControllerObject.GetComponent<EnemyController>().GetDefenseStat(enemyDefense, enemyNumber);
+
+        //holy equation:
+        int toHitVal = throwPower * Random.Range(10, 20);
+        int toDefendVal = enemyDefenseValue * Random.Range(5, 10);
+        Debug.Log("To Hit: " + toHitVal + " vs. ToDefend:  " + toDefendVal);
+        //hit
+        if (toHitVal > toDefendVal)
+        {
+            Hit(playerControllerObject.GetComponent<PlayerVariableController>().myTeam[playerNumber].hasBall,enemyNumber);
+        }
+        //Defend
+        else
+        {
+            Miss(playerControllerObject.GetComponent<PlayerVariableController>().myTeam[playerNumber].hasBall, enemyNumber);
+        }
+    }
+
+    public void Hit(int ballNumber, int enemyNumber)
+    {
+        //deactivate enemy
+        myEnemyControllerObject.GetComponent<EnemyController>().EliminateEnemy(enemyNumber);
+
+        //drop the ball
+        dropBall(ballNumber, myEnemyControllerObject.GetComponent<EnemyController>().enemyList[enemyNumber].xPosn, myEnemyControllerObject.GetComponent<EnemyController>().enemyList[enemyNumber].yPosn);
+
+        //check for end game
+        if( myEnemyControllerObject.GetComponent<EnemyController>().CheckForEnd())
+        {
+            Debug.Log("GAME OVER, YA WIN YA SHREK");
+        }
+    }
+
+    public void Miss(int ballNumber, int enemyNumber)
+    {
+
     }
 }
