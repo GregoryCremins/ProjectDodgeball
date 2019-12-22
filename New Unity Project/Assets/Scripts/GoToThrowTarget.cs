@@ -9,13 +9,13 @@ public class GoToThrowTarget : MonoBehaviour
 
     public void PerformAction()
     {
+            myBoardState.myEnemyTargetReticle.SetActive(true);
 
-        myBoardState.myEnemyTargetReticle.SetActive(true);
-        
-        myBoardState.myControlsObject.GetComponent<Controls>().currentTarget = myBoardState.myEnemyTargetReticle;
-        myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().backOption = gameObject;
-        myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().myBoardState = myBoardState;
-        myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().Activate();
+            myBoardState.myControlsObject.GetComponent<Controls>().currentTarget = myBoardState.myEnemyTargetReticle;
+            myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().backOption = gameObject;
+            myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().myBoardState = myBoardState;
+            myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().Activate();
+
     }
 
     // Start is called before the first frame update

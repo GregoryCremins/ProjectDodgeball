@@ -13,6 +13,8 @@ public class PlayerVariableController : MonoBehaviour
         public int enduranceStat;
         public int agilityStat;
         public bool eliminated;
+        public bool actionTaken;
+        public bool moved;
 
         public Player(int myPower, int myEndurance, int myAgility)
         {
@@ -25,6 +27,12 @@ public class PlayerVariableController : MonoBehaviour
         public int CheckIfHasBall()
         {
             return hasBall;
+        }
+
+        public void resetActions()
+        {
+            actionTaken = false;
+            moved = false;
         }
     }
 
@@ -55,6 +63,7 @@ public class PlayerVariableController : MonoBehaviour
     {
         return myTeam[playerNumber].powerStat;
     }
+
 
     
 }

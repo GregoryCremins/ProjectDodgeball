@@ -224,8 +224,7 @@ public class BoardStateController : MonoBehaviour
         EmptySpace(getGridXOfPlayer(playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber), getGridYOfPlayer(playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber));
         playerControllerObject.GetComponent<ActivePlayerController>().movePlayer(gridRenderSystem.GetComponent<GridRenderer>().myRenderedGrid[newX,newY]);
         myGrid[newX, newY].occupied = true;
-        myGrid[newX, newY].playerNumberHere = playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber;
-        
+        myGrid[newX, newY].playerNumberHere = playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber;        
     }
 
     public void checkBallPickup (int playerNumber)

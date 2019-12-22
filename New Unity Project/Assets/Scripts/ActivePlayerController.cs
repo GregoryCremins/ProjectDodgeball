@@ -23,9 +23,9 @@ public class ActivePlayerController : MonoBehaviour
             
             currentNamePlate = waitingPlayerCards[0];
             currentPlayerNumber = currentNamePlate.GetComponent<NamePlateController>().myPlayerNumber;
+            gameObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].resetActions();
             currentPlayerTarget = gameObject.GetComponent<PlayerSpawn>().myPlayers[currentPlayerNumber];
             waitingPlayerCards.RemoveAt(0);
-            Debug.Log("ADDED A DOOGLE " + currentPlayerNumber);
             HighlightPlayerTile();
         }
         

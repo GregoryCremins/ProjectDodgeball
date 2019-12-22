@@ -12,12 +12,14 @@ public class GoToReticle : MonoBehaviour, Actionable
     public void performAction()
     {
         
-        if (myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >= 0)
+        if (myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >= 0 && 
+            myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].moved == false)
         {
             myBoardState.myMovementReticle.SetActive(true);
             myBoardState.myControlsObject.GetComponent<Controls>().currentTarget = myBoardState.myMovementReticle;
             myBoardState.myMovementReticle.GetComponent<Movable>().backOption = gameObject;
             myBoardState.myMovementReticle.GetComponent<Movable>().myBoardState = myBoardState;
+            myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].moved = true;
 
         }
 
