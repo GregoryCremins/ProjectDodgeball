@@ -19,7 +19,7 @@ public class GoToReticle : MonoBehaviour, Actionable
             myBoardState.myControlsObject.GetComponent<Controls>().currentTarget = myBoardState.myMovementReticle;
             myBoardState.myMovementReticle.GetComponent<Movable>().backOption = gameObject;
             myBoardState.myMovementReticle.GetComponent<Movable>().myBoardState = myBoardState;
-            myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].moved = true;
+            //myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].moved = true;
 
         }
 

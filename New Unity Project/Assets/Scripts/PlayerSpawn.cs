@@ -13,7 +13,7 @@ public class PlayerSpawn : MonoBehaviour
     void Start()
     {
         myGridScript = MyGridObject.GetComponent<GridRenderer>();
-        
+       
     }
 
     // Update is called once per frame
@@ -47,9 +47,22 @@ public class PlayerSpawn : MonoBehaviour
 
     public int pickRandomPlayer()
     {
-        GameObject targetPlayer = activePlayers[Random.Range(0, activePlayers.Count)];
+        int myTarget = -1;
+        List<GameObject> myPool = new List<GameObject>();
+        foreach(GameObject g in activePlayers)
+        {
+            if(!gameObject.GetComponent<PlayerVariableController>().myTeam[g.GetComponent<Identifiers>().playerID].eliminated)
+            {
+                myPool.Add(g);
+            }
+        }
+        if (myPool.Count > 0)
+        {
+            GameObject targetPlayer = myPool[Random.Range(0, myPool.Count)];
+            myTarget = targetPlayer.GetComponent<Identifiers>().playerID;
+        }
 
-        return targetPlayer.GetComponent<Identifiers>().playerID;
+        return myTarget;
     }
 
     public Transform GetPlayerTransform(int playerNumber)

@@ -114,6 +114,7 @@ public class Controls : MonoBehaviour {
 
     public void AdvanceOption()
     {
+        Debug.Log("CURRENT TARGET : " + currentTarget);
         if (currentTarget.GetComponent<Actionable>() != null)
         {
             currentTarget.GetComponent<Actionable>().performAction();
@@ -148,11 +149,26 @@ public class Controls : MonoBehaviour {
     }
     public void BackOption()
     {
+        Debug.Log("PRESSING BACK ON " + currentTarget);
+
         if (currentTarget.GetComponent<SubMenuOption>() != null)
         {
             currentTarget.GetComponent<Controllable>().UnHighlight();
             lastMenuTarget.GetComponent<SubMenuController>().DeactivateAll();
        
+            currentTarget = lastMenuTarget;
+            currentTarget.GetComponent<Controllable>().Highlight();
+        }
+        if(currentTarget.GetComponent<Movable>() != null)
+        {
+            Debug.Log("LAST MENU TARGET: " + lastMenuTarget);
+            currentTarget.SetActive(false);
+            currentTarget = startTarget;
+            currentTarget.GetComponent<Controllable>().Highlight();
+        }
+        if (currentTarget.GetComponent<Movable2>() != null)
+        {
+            currentTarget.SetActive(false);
             currentTarget = lastMenuTarget;
             currentTarget.GetComponent<Controllable>().Highlight();
         }

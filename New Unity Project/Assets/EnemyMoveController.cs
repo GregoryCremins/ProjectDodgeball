@@ -75,9 +75,10 @@ public class EnemyMoveController : MonoBehaviour
                 {
                   
                     int throwTarget = myBoardState.PickRandomAlivePlayer();
-                    Debug.Log("TARGET: " + throwTarget);
+                    //Debug.Log("START: " + myAINumber);
+                    //Debug.Log("TARGET: " + throwTarget);
                     myBoardState.EnemyThrowBall(myAINumber, throwTarget);
-                    instructions = "THROW:" + throwTarget;
+                    instructions = "Throw:" + throwTarget;
   
                 }
                 else
@@ -129,8 +130,8 @@ public class EnemyMoveController : MonoBehaviour
                 int i = 0;
                 foreach (EnemyController.Enemy e in gameObject.GetComponent<EnemyController>().enemyList)
                 {
-
-                    myPassiveEnemyAIs.Add(new AI(100, e.agilityStat / 500f, i, "Simple"));
+                    AI myNewAI = new AI(100, e.agilityStat / 500f, i, "Simple");
+                    myPassiveEnemyAIs.Add(myNewAI);
                     i++;
                 }
                 firstFill = true;
@@ -144,7 +145,7 @@ public class EnemyMoveController : MonoBehaviour
                 testAI.IncrementInitiative();
                 if (testAI.CheckIfReady())
                 {
-                    Debug.Log("DO A THING" + testAI.myAINumber);
+                    //Debug.Log("DO A THING" + testAI.myAINumber);
                     myWaitingEnemyAIs.Add(testAI);
 
                 }
@@ -154,6 +155,7 @@ public class EnemyMoveController : MonoBehaviour
 
         if(myWaitingEnemyAIs.Count > 0 && !doingSomething)
         {
+
             QueueUpAction(myWaitingEnemyAIs[0]);
             doingSomething = true;
             Invoke("ResetDoSomething",3);
@@ -167,8 +169,9 @@ public class EnemyMoveController : MonoBehaviour
 
     public void QueueUpAction(AI myAI)
     {
+        myBoardState.SetEnemyDefense(myAI.myAINumber, "None");
         string action = myAI.MakeAIDecision(myBoardState);
-        Debug.Log("MY DECISION: " + action);
+        //Debug.Log("MY DECISION: " + action);
         string[] instructions = action.Split(';');
         foreach (string instruction in instructions)
         {
@@ -191,6 +194,7 @@ public class EnemyMoveController : MonoBehaviour
                // boardStateObject.GetComponent<BoardStateController>().EnemyThrowBall(myAI.myAINumber, throwTarget);
                 myWaitingEnemyAIs.Remove(myAI);
             }
+            //Debug.Log("NEXT: " +myWaitingEnemyAIs[0].myAINumber);
         }
     }
 

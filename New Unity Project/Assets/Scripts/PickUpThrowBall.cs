@@ -26,7 +26,7 @@ public class PickUpThrowBall : MonoBehaviour,Actionable
             {
                 gameObject.GetComponent<GoToThrowTarget>().PerformAction();
             }
-            myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].actionTaken = true;
+            
         }
         
     }

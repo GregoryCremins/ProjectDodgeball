@@ -66,7 +66,7 @@ public class ActivePlayerController : MonoBehaviour
         ResetStuff();
     }
 
-    public void movePlayer(GameObject gridObject, int energyLoss)
+    public void movePlayer(GameObject gridObject, float energyLoss)
     {
             Transform t = gridObject.transform;
             Vector3 localOffset = new Vector3(1f, -2f, -20f);
