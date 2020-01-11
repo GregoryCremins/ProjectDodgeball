@@ -17,7 +17,9 @@ public class PlayerVariableController : MonoBehaviour
         public string defenseActionChosen;
         public bool defenseActionUsed;
         public bool moved;
-        public Player(int myPower, float myEndurance, int myAgility)
+        public Vector3 globalLocation;
+        public int myPlayerNumber;
+        public Player(int myPower, float myEndurance, int myAgility, int myPN)
         {
             hasBall = -1;
             energy = myEndurance;
@@ -25,6 +27,7 @@ public class PlayerVariableController : MonoBehaviour
             powerStat = myPower;
             agilityStat = myAgility;
             defenseActionChosen = "None";
+            myPlayerNumber = myPN;
         }
         
         public int CheckIfHasBall()
@@ -51,19 +54,62 @@ public class PlayerVariableController : MonoBehaviour
 
     public List<Player> myTeam;
     public int movementConstant = 20;
-
+    public int walkSpeed = 5;
+    public bool initialSetup = false;
     // Start is called before the first frame update
     void Start()
     {
-        myTeam.Add(new Player(50, 35, 50));
-        myTeam.Add(new Player(50, 20, 50));
-        myTeam.Add(new Player(50, 60, 50));
+        myTeam.Add(new Player(50, 35, 50, 0));
+        myTeam.Add(new Player(50, 20, 50, 1));
+        myTeam.Add(new Player(50, 60, 50, 2));
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+    }
+    private void FixedUpdate()
+    {
+        if(!initialSetup && gameObject.GetComponent<PlayerSpawn>().activePlayers.Count > 0)
+        {
+            myTeam[0].globalLocation = gameObject.GetComponent<PlayerSpawn>().activePlayers[0].transform.position;
+            myTeam[1].globalLocation = gameObject.GetComponent<PlayerSpawn>().activePlayers[1].transform.position;
+            myTeam[2].globalLocation = gameObject.GetComponent<PlayerSpawn>().activePlayers[2].transform.position;
+            initialSetup = true;
+        }
+        //Debug.Log(gameObject.GetComponent<PlayerSpawn>().activePlayers.Count);
+        foreach(Player p in myTeam)
+        {
+            if (gameObject.GetComponent<PlayerSpawn>().activePlayers.Count > 0 && !p.eliminated && Vector3.Distance(gameObject.GetComponent<PlayerSpawn>().activePlayers[p.myPlayerNumber].transform.position, myTeam[p.myPlayerNumber].globalLocation) > .05f)
+            {
+                float step = walkSpeed* Time.deltaTime;
+                gameObject.GetComponent<PlayerSpawn>().activePlayers[p.myPlayerNumber].transform.position = Vector3.MoveTowards(gameObject.GetComponent<PlayerSpawn>().activePlayers[p.myPlayerNumber].transform.position, myTeam[p.myPlayerNumber].globalLocation, step);
+                if(Vector3.Distance(gameObject.GetComponent<PlayerSpawn>().activePlayers[p.myPlayerNumber].transform.position, myTeam[p.myPlayerNumber].globalLocation) <.05f)
+                {
+                    gameObject.GetComponent<PlayerSpawn>().activePlayers[p.myPlayerNumber].transform.position = myTeam[p.myPlayerNumber].globalLocation;
+                }
+            }
+
+            //set hasball flag
+            if (gameObject.GetComponent<PlayerSpawn>().activePlayers.Count > 0 && gameObject.GetComponent<PlayerSpawn>().activePlayers[p.myPlayerNumber].GetComponent<AnimationController>() != null)
+            {
+                if (p.hasBall != -1)
+                {
+                    gameObject.GetComponent<PlayerSpawn>().activePlayers[p.myPlayerNumber].GetComponent<AnimationController>().SetHasBall(true);
+                }
+                else
+                {
+                    gameObject.GetComponent<PlayerSpawn>().activePlayers[p.myPlayerNumber].GetComponent<AnimationController>().SetHasBall(false);
+                }
+            }
+        }
+    }
+
+    public void UpdatePlayerGlobalLocation(int currentPlayerNumber, Vector3 spawnPosition)
+    {
+        myTeam[currentPlayerNumber].globalLocation = spawnPosition;
     }
 
     public string GetDefenseOption(int playerNumber)
@@ -96,7 +142,7 @@ public class PlayerVariableController : MonoBehaviour
         else
         {
             myTeam[playerNumber].energy = myTeam[playerNumber].energy - addValue;
-            Debug.Log(myTeam[playerNumber].energy);
+            //Debug.Log(myTeam[playerNumber].energy);
         }
     }
 

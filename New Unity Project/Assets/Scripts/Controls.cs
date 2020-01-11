@@ -114,7 +114,7 @@ public class Controls : MonoBehaviour {
 
     public void AdvanceOption()
     {
-        Debug.Log("CURRENT TARGET : " + currentTarget);
+        //Debug.Log("CURRENT TARGET : " + currentTarget);
         if (currentTarget.GetComponent<Actionable>() != null)
         {
             currentTarget.GetComponent<Actionable>().performAction();

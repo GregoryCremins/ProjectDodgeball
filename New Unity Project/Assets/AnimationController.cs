@@ -15,14 +15,16 @@ public class AnimationController : MonoBehaviour
     {
         myAnimator = myAnimationObject.GetComponent<Animator>();
         InvokeRepeating("CheckWalking", .01f, .01f);
-        myAnimator.SetBool("Walking", true);
+        prevPosition = gameObject.GetComponentInParent<Transform>().position;
+        // myAnimator.SetBool("Walking", true);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+     
+
     }
 
     private void FixedUpdate()
@@ -48,22 +50,34 @@ public class AnimationController : MonoBehaviour
                         "", false);
                 }
         }
+
+
     }
 
     public void CheckWalking()
     {
-        if (prevPosition != transform.position)
+        //Debug.Log(prevPosition);
+        Vector3 currentPosition = gameObject.GetComponentInParent<Transform>().position;
+        Debug.Log(currentPosition);
+        Debug.Log(currentPosition == prevPosition);
+        if (prevPosition != currentPosition)
         {
             //Vector3 targetPosn = GetComponentInParent<Transform>().position;
             // float step = speed * Time.deltaTime;
             //transform.position = Vector3.MoveTowards(transform.position, targetPosn, step);
 
-            myAnimator.SetBool("Walking", true);
+            myAnimator.SetBool("Walk", true);
+            prevPosition = currentPosition;
         }
         else
         {
-            //myAnimator.SetBool("Walking", false);
+            myAnimator.SetBool("Walk", false);
         }
+    }
+
+    public void SetHasBall(bool hasBall)
+    {
+        myAnimator.SetBool("Has Ball", hasBall);
     }
 
 
