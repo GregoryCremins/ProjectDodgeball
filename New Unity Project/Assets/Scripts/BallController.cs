@@ -10,6 +10,7 @@ public class BallController : MonoBehaviour
     {
         public bool held;
         public int playerHolding;
+        public int enemyHolding;
         public int xPosn;
         public int yPosn;
 
@@ -17,6 +18,7 @@ public class BallController : MonoBehaviour
         {
             held = false;
             playerHolding = -1;
+            enemyHolding = -1;
             xPosn = newX;
             yPosn = newY;
         }
@@ -94,6 +96,13 @@ public class BallController : MonoBehaviour
         
         dodgeBalls[ballNumber].held = true;
         dodgeBalls[ballNumber].playerHolding = playerNumber;
+        myActiveBalls[ballNumber].SetActive(false);
+    }
+
+    public void EnemyPickUpBall(int myAINumber, int ballNumber)
+    {
+        dodgeBalls[ballNumber].held = true;
+        dodgeBalls[ballNumber].enemyHolding = myAINumber;
         myActiveBalls[ballNumber].SetActive(false);
     }
     public void DropBall(int ballNumber)

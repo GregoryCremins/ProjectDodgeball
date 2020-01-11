@@ -8,7 +8,7 @@ public class EnemyController : MonoBehaviour
     [System.Serializable]
     public class Enemy
     {
-        public int dodgeStat;
+        public int agilityStat;
         public int powerStat;
         public int enduranceStat;
         public string defenseOption = "None";
@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
 
         public Enemy(int newX, int newY)
         {
-            dodgeStat = 50;
+            agilityStat = 50;
             powerStat = 50;
             enduranceStat = 50;
             energy = 100;
@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
 
         public Enemy(int newX, int newY, int newDod, int newPow, int newEnd)
         {
-            dodgeStat = newDod;
+            agilityStat = newDod;
             powerStat = newPow;
             enduranceStat = newEnd;
             energy = 100;
@@ -51,6 +51,12 @@ public class EnemyController : MonoBehaviour
         public void getBall(int myNewBall)
         {
             hasBall = myNewBall;
+        }
+
+        public void SetXYCoord(int xCoord, int yCoord)
+        {
+            xPosn = xCoord;
+            yPosn = yCoord;
         }
 
     }
@@ -106,6 +112,11 @@ public class EnemyController : MonoBehaviour
         return enemyList[EnemyNumber].defenseOption;
     }
 
+    public int GetPowerStat(int EnemyNumber)
+    {
+        return enemyList[EnemyNumber].powerStat;
+    }
+
     public int GetDefenseStat(string defenseName, int enemyNumber)
     {
         if(defenseName == "Catch" || defenseName == "Block")
@@ -114,13 +125,13 @@ public class EnemyController : MonoBehaviour
         }
         if(defenseName == "Dodge")
         {
-            return enemyList[enemyNumber].dodgeStat;
+            return enemyList[enemyNumber].agilityStat;
         }
         else
         {
             if(enemyList[enemyNumber].energy > 50)
             {
-                return enemyList[enemyNumber].dodgeStat / 2;
+                return enemyList[enemyNumber].agilityStat / 2;
             }
             else
             {

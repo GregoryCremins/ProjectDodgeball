@@ -44,4 +44,9 @@ public class PlayerSpawn : MonoBehaviour
             yOffset++;
         }
     }
+
+    public int pickRandomPlayer()
+    {
+        return myPlayers.IndexOf(activePlayers[Random.Range(0, activePlayers.Count)]);
+    }
 }

@@ -211,6 +211,88 @@ public class BoardStateController : MonoBehaviour
         return -1;
     }
 
+
+    public (int,int) FindClosestBallToEnemy(int enemyNumber)
+    {
+        int closestX = -1;
+        int closestY = -1;
+        int closestDistance = 100000;
+        int myX = -1;
+        int myY = -1;
+        for (int x = 3; x < 6; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                if (myGrid[x, y].enemyNumberHere == enemyNumber)
+                {
+                    myX = x;
+                    myY = y;
+                }
+            }
+        }
+        //now that we have enemies position, determine closest ball.
+        for (int x = 3; x < 6; x++)
+        {
+            for (int y = 0; y < 3; y++)
+            {
+                if (myGrid[x, y].ballNumberHere != -1)
+                {
+                    if (Vector2.Distance(new Vector2(x,y), new Vector2(myX, myY)) < closestDistance && myGrid[x,y].occupied == false)
+                    {
+                        closestX = x;
+                        closestY = y;
+                    }
+                }
+            }
+        }
+        return (closestX, closestY);
+
+    }
+
+    public int PickRandomAlivePlayer()
+    {
+        int target = playerControllerObject.GetComponent<PlayerSpawn>().pickRandomPlayer();
+
+            return target;
+
+    }
+
+    public void MoveEnemy(int xCoord, int yCoord, int enemyNumber)
+    {
+        myGrid[getGridXOfEnemy(enemyNumber), getGridYOfEnemy(enemyNumber)].enemyNumberHere = -1;
+        myGrid[xCoord, yCoord].enemyNumberHere= enemyNumber;
+        myEnemyControllerObject.GetComponent<EnemyController>().enemyList[enemyNumber].SetXYCoord(xCoord, yCoord);
+
+    }
+
+    public void EnemyPickUpBall(int myAINumber)
+    {
+        int targetX = getGridXOfEnemy(myAINumber);
+        int targetY = getGridYOfEnemy(myAINumber);
+        if (myGrid[targetX,targetY].ballNumberHere != -1)
+        {
+            //pick up ball
+            int ballNumber = myGrid[targetX, targetY].ballNumberHere;
+            myEnemyControllerObject.GetComponent<EnemyController>().enemyList[myAINumber].getBall(ballNumber);
+            ballControllerObject.GetComponent<BallController>().EnemyPickUpBall(myAINumber, ballNumber);
+            myGrid[targetX, targetY].ballNumberHere = -1;
+            for (int x = 0; x < 6; x++)
+            {
+                for (int y = 0; y < 3; y++)
+                {
+                    if (myGrid[x, y].ballNumberHere == ballNumber)
+                    {
+                        myGrid[x, y].ballNumberHere = -1;
+                    }
+                }
+            }
+        }
+    }
+
+    public void EnemyThrowBall(int myAINumber, int playerTarget)
+    {
+
+    }
     public void EmptySpace(int x, int y)
     {
         myGrid[x,y].occupied = false;
@@ -301,6 +383,27 @@ public class BoardStateController : MonoBehaviour
             Miss(playerControllerObject.GetComponent<PlayerVariableController>().myTeam[playerNumber].hasBall, enemyNumber);
         }
     }
+    public void CalculateHitOnPlayer(int enemyNumber, int playerNumber)
+    {
+        int throwPower = myEnemyControllerObject.GetComponent<EnemyController>().GetPowerStat(enemyNumber);
+        string targetDefense = playerControllerObject.GetComponent<PlayerVariableController>().GetDefenseOption(playerNumber);
+        int targetDefenseValue = playerControllerObject.GetComponent<PlayerVariableController>().GetDefenseStat(targetDefense, playerNumber);
+
+        //holy equation:
+        int toHitVal = throwPower * Random.Range(10, 20);
+        int toDefendVal = targetDefenseValue * Random.Range(5, 10);
+        Debug.Log("To Hit: " + toHitVal + " vs. ToDefend:  " + toDefendVal);
+        //hit
+        if (toHitVal > toDefendVal)
+        {
+            HitPlayer(myEnemyControllerObject.GetComponent<EnemyController>().enemyList[enemyNumber].hasBall, playerNumber);
+        }
+        //Defend
+        else
+        {
+            MissPlayer(myEnemyControllerObject.GetComponent<EnemyController>().enemyList[enemyNumber].hasBall, playerNumber);
+        }
+    }
 
     public void Hit(int ballNumber, int enemyNumber)
     {
@@ -316,8 +419,28 @@ public class BoardStateController : MonoBehaviour
             Debug.Log("GAME OVER, YA WIN YA SHREK");
         }
     }
+    public void HitPlayer(int ballNumber, int playerNumber)
+    {
+        //drop the ball
+        dropBall(ballNumber, getGridXOfPlayer(playerNumber), getGridYOfPlayer(playerNumber));
+
+        //deactivate player
+        playerControllerObject.GetComponent<PlayerVariableController>().EliminatePlayer(playerNumber);
+
+        
+
+        //check for end game
+        if (playerControllerObject.GetComponent<PlayerVariableController>().CheckForEnd())
+        {
+            Debug.Log("GAME OVER, YA LOSE YA SHREK");
+        }
+    }
 
     public void Miss(int ballNumber, int enemyNumber)
+    {
+
+    }
+    public void MissPlayer(int ballNumber, int enemyNumber)
     {
 
     }
