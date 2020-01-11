@@ -5506,7 +5506,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstFill: 0
   doingSomething: 0
-  boardStateObject: {fileID: 1644330895}
+  boardStateObject: {fileID: 732985661}
   myBoardState: {fileID: 0}
 --- !u!1 &1663750456
 GameObject:

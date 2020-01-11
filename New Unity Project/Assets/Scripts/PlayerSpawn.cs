@@ -47,6 +47,22 @@ public class PlayerSpawn : MonoBehaviour
 
     public int pickRandomPlayer()
     {
-        return myPlayers.IndexOf(activePlayers[Random.Range(0, activePlayers.Count)]);
+        GameObject targetPlayer = activePlayers[Random.Range(0, activePlayers.Count)];
+
+        return targetPlayer.GetComponent<Identifiers>().playerID;
+    }
+
+    public Transform GetPlayerTransform(int playerNumber)
+    {
+        Transform target = null;
+        foreach(GameObject g in activePlayers)
+        {
+            if(g.GetComponent<Identifiers>().playerID == playerNumber)
+            {
+                target = g.transform;
+            }
+        }
+        return target;
+
     }
 }

@@ -230,6 +230,7 @@ public class BoardStateController : MonoBehaviour
                 }
             }
         }
+        Debug.Log("FIND CLOSEST BALL");
         //now that we have enemies position, determine closest ball.
         for (int x = 3; x < 6; x++)
         {
@@ -249,6 +250,10 @@ public class BoardStateController : MonoBehaviour
 
     }
 
+    public void SetEnemyDefense(int enemyNumber, string defenseChoice)
+    {
+
+    }
     public int PickRandomAlivePlayer()
     {
         int target = playerControllerObject.GetComponent<PlayerSpawn>().pickRandomPlayer();
@@ -261,7 +266,7 @@ public class BoardStateController : MonoBehaviour
     {
         myGrid[getGridXOfEnemy(enemyNumber), getGridYOfEnemy(enemyNumber)].enemyNumberHere = -1;
         myGrid[xCoord, yCoord].enemyNumberHere= enemyNumber;
-        myEnemyControllerObject.GetComponent<EnemyController>().enemyList[enemyNumber].SetXYCoord(xCoord, yCoord);
+        myEnemyControllerObject.GetComponent<EnemyController>().MoveEnemy(enemyNumber, xCoord, yCoord);
 
     }
 
@@ -291,6 +296,10 @@ public class BoardStateController : MonoBehaviour
 
     public void EnemyThrowBall(int myAINumber, int playerTarget)
     {
+        //determine if we hit player
+        ShootBallAtPlayer(myAINumber, playerTarget);
+        CalculateHitOnPlayer(myAINumber, playerTarget);
+        
 
     }
     public void EmptySpace(int x, int y)
@@ -362,15 +371,23 @@ public class BoardStateController : MonoBehaviour
         bullet.GetComponent<TrackShot>().target = endpoint;
     }
 
+    public void ShootBallAtPlayer(int enemyNumber, int playerNumber)
+    {
+        Transform startpoint = myEnemyControllerObject.GetComponent<EnemyController>().GetEnemyTransform(enemyNumber);
+        Vector3 endPoint = playerControllerObject.GetComponent<PlayerSpawn>().GetPlayerTransform(playerNumber).position;
+        GameObject bullet = Instantiate(ballProjectilePrefab, startpoint.position, Quaternion.identity);
+        bullet.transform.position = new Vector3(bullet.transform.position.x, bullet.transform.position.y);
+        bullet.GetComponent<TrackShot>().target = endPoint;
+    }
     public void CalculateHitOnEnemy(int playerNumber, int enemyNumber)
     {
         int throwPower = playerControllerObject.GetComponent<PlayerVariableController>().GetThrowPower(playerNumber);
         string enemyDefense = myEnemyControllerObject.GetComponent<EnemyController>().GetDefenseOption(enemyNumber);
-        int enemyDefenseValue = myEnemyControllerObject.GetComponent<EnemyController>().GetDefenseStat(enemyDefense, enemyNumber);
+        float enemyDefenseValue = myEnemyControllerObject.GetComponent<EnemyController>().GetDefenseStat(enemyDefense, enemyNumber);
 
         //holy equation:
         int toHitVal = throwPower * Random.Range(10, 20);
-        int toDefendVal = enemyDefenseValue * Random.Range(5, 10);
+        float toDefendVal = enemyDefenseValue * Random.Range(5, 10);
         Debug.Log("To Hit: " + toHitVal + " vs. ToDefend:  " + toDefendVal);
         //hit
         if (toHitVal > toDefendVal)
@@ -385,12 +402,12 @@ public class BoardStateController : MonoBehaviour
     }
     public void CalculateHitOnPlayer(int enemyNumber, int playerNumber)
     {
-        int throwPower = myEnemyControllerObject.GetComponent<EnemyController>().GetPowerStat(enemyNumber);
+        float throwPower = myEnemyControllerObject.GetComponent<EnemyController>().GetPowerStat(enemyNumber);
         string targetDefense = playerControllerObject.GetComponent<PlayerVariableController>().GetDefenseOption(playerNumber);
         int targetDefenseValue = playerControllerObject.GetComponent<PlayerVariableController>().GetDefenseStat(targetDefense, playerNumber);
 
         //holy equation:
-        int toHitVal = throwPower * Random.Range(10, 20);
+        float toHitVal = throwPower * Random.Range(10, 20);
         int toDefendVal = targetDefenseValue * Random.Range(5, 10);
         Debug.Log("To Hit: " + toHitVal + " vs. ToDefend:  " + toDefendVal);
         //hit
