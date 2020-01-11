@@ -194,7 +194,7 @@ public class EnemyMoveController : MonoBehaviour
                // boardStateObject.GetComponent<BoardStateController>().EnemyThrowBall(myAI.myAINumber, throwTarget);
                 myWaitingEnemyAIs.Remove(myAI);
             }
-            Debug.Log("NEXT: " +myWaitingEnemyAIs[0].myAINumber);
+            //Debug.Log("NEXT: " +myWaitingEnemyAIs[0].myAINumber);
         }
     }
 

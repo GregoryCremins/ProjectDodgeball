@@ -13,7 +13,7 @@ public class PlayerSpawn : MonoBehaviour
     void Start()
     {
         myGridScript = MyGridObject.GetComponent<GridRenderer>();
-        
+       
     }
 
     // Update is called once per frame
