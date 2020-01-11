@@ -118,8 +118,6 @@ public class BallController : MonoBehaviour
 
     public void DropBall(int ballNumber, int xPosn, int yPosn)
     {
-        Debug.Log("HA: " + xPosn);
-        Debug.Log("HA: " + yPosn);
         dodgeBalls[ballNumber].held = false;
         dodgeBalls[ballNumber].playerHolding = -1;
         dodgeBalls[ballNumber].setXCoord(xPosn);

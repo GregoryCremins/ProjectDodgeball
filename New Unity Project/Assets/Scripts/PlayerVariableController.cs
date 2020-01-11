@@ -87,7 +87,7 @@ public class PlayerVariableController : MonoBehaviour
         }
     }
 
-    public void subtractFromEnergy(int playerNumber, int addValue)
+    public void subtractFromEnergy(int playerNumber, float addValue)
     {
         if(myTeam[playerNumber].energy <= addValue)
         {
@@ -100,14 +100,15 @@ public class PlayerVariableController : MonoBehaviour
         }
     }
 
-    public int checkIfEnoughEnergy(int playerNumber, int valueToCheck)
+    public float checkIfEnoughEnergy(int playerNumber, float valueToCheck)
     {
-        if (myTeam[playerNumber].energy > (valueToCheck * movementConstant))
+        if (myTeam[playerNumber].energy >= (valueToCheck * movementConstant))
         {
             return valueToCheck * movementConstant;
         }
         else
         {
+            Debug.Log("NOT ENOUGH, NEED: " + (valueToCheck * movementConstant) + ", GOT: " + myTeam[playerNumber].energy);
             return 0;
         }
     }

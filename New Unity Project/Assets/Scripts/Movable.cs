@@ -81,8 +81,9 @@ public class Movable : MonoBehaviour
 
     public void PutPersonHere()
     {
-        int moveDistance = Mathf.Abs(myBoardState.getGridXOfPlayer(myBoardState.GetCurrentPlayerNumber()) - xCoord) + Mathf.Abs(myBoardState.getGridYOfPlayer(myBoardState.GetCurrentPlayerNumber()) - yCoord);
-        int energyLoss = myBoardState.CheckIfMovePlayer(moveDistance);
+        float moveDistance = Vector2.Distance(new Vector2(xCoord, yCoord), new Vector2(myBoardState.getGridXOfPlayer(myBoardState.GetCurrentPlayerNumber()), myBoardState.getGridYOfPlayer(myBoardState.GetCurrentPlayerNumber())));
+        //int moveDistance = Mathf.Abs(myBoardState.getGridXOfPlayer(myBoardState.GetCurrentPlayerNumber()) - xCoord) + Mathf.Abs(myBoardState.getGridYOfPlayer(myBoardState.GetCurrentPlayerNumber()) - yCoord);
+        float energyLoss = myBoardState.CheckIfMovePlayer(moveDistance);
         if (energyLoss != 0)
         {
             if (!myBoardState.myGrid[xCoord, yCoord].occupied)
@@ -91,6 +92,7 @@ public class Movable : MonoBehaviour
                 //Debug.Log("X: " + xCoord + " Y: " + yCoord);
                 myBoardState.MovePlayer(energyLoss);
                 myBoardState.myControlsObject.GetComponent<Controls>().currentTarget = myBoardState.myControlsObject.GetComponent<Controls>().startTarget;
+                myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].moved = true;
                 gameObject.SetActive(false);
             }
             else
@@ -98,6 +100,10 @@ public class Movable : MonoBehaviour
                 Debug.Log("occupado");
                 Debug.Log(myBoardState.myGrid[xCoord, yCoord].playerNumberHere + " ASDASD");
             }
+        }
+        else
+        {
+            Debug.Log("NOT ENOUGH ENERGY");
         }
     }
 }

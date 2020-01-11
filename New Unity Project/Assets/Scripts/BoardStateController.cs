@@ -230,7 +230,7 @@ public class BoardStateController : MonoBehaviour
                 }
             }
         }
-        Debug.Log("FIND CLOSEST BALL");
+        //Debug.Log("FIND CLOSEST BALL");
         //now that we have enemies position, determine closest ball.
         for (int x = 3; x < 6; x++)
         {
@@ -252,7 +252,7 @@ public class BoardStateController : MonoBehaviour
 
     public void SetEnemyDefense(int enemyNumber, string defenseChoice)
     {
-
+        myEnemyControllerObject.GetComponent<EnemyController>().SetDefense(enemyNumber, defenseChoice);
     }
     public int PickRandomAlivePlayer()
     {
@@ -297,6 +297,7 @@ public class BoardStateController : MonoBehaviour
     public void EnemyThrowBall(int myAINumber, int playerTarget)
     {
         //determine if we hit player
+        Debug.Log("SHOOTING");
         ShootBallAtPlayer(myAINumber, playerTarget);
         CalculateHitOnPlayer(myAINumber, playerTarget);
         
@@ -310,11 +311,11 @@ public class BoardStateController : MonoBehaviour
         myGrid[x, y].enemyNumberHere = -1;
     }
 
-    public int CheckIfMovePlayer(int moveDistance)
+    public float CheckIfMovePlayer(float moveDistance)
     {
         return playerControllerObject.GetComponent<PlayerVariableController>().checkIfEnoughEnergy(GetCurrentPlayerNumber(),moveDistance);
     }
-    public void MovePlayer(int energyLoss)
+    public void MovePlayer(float energyLoss)
     {
         int newX = myMovementReticle.GetComponent<Movable>().xCoord;
         int newY = myMovementReticle.GetComponent<Movable>().yCoord;
@@ -355,8 +356,8 @@ public class BoardStateController : MonoBehaviour
 
     public void dropBall(int ballNumber, int xPosn, int yPosn)
     {
-        Debug.Log(xPosn);
-        Debug.Log(xPosn);
+        //Debug.Log(xPosn);
+        //Debug.Log(xPosn);
         myGrid[xPosn, yPosn].ballNumberHere = ballNumber;
         playerControllerObject.GetComponent<PlayerVariableController>().myTeam[playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].hasBall = -1;
         ballControllerObject.GetComponent<BallController>().DropBall(ballNumber, xPosn,yPosn);
@@ -364,6 +365,7 @@ public class BoardStateController : MonoBehaviour
 
     public void ShootBall(Vector3 endpoint)
     {
+
         Transform startPoint = playerControllerObject.GetComponent<ActivePlayerController>().gameObject.GetComponent<PlayerSpawn>().activePlayers[playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].transform;
         GameObject bullet = Instantiate(ballProjectilePrefab, startPoint.transform.position,Quaternion.identity);
         bullet.transform.position = new Vector3(bullet.transform.position.x, bullet.transform.position.y);
@@ -373,11 +375,17 @@ public class BoardStateController : MonoBehaviour
 
     public void ShootBallAtPlayer(int enemyNumber, int playerNumber)
     {
+        //Debug.Log("SHOOT THE J: " + enemyNumber);
+        //Debug.Log("AT: " + playerNumber);
         Transform startpoint = myEnemyControllerObject.GetComponent<EnemyController>().GetEnemyTransform(enemyNumber);
+        //Debug.Log(startpoint);
         Vector3 endPoint = playerControllerObject.GetComponent<PlayerSpawn>().GetPlayerTransform(playerNumber).position;
         GameObject bullet = Instantiate(ballProjectilePrefab, startpoint.position, Quaternion.identity);
         bullet.transform.position = new Vector3(bullet.transform.position.x, bullet.transform.position.y);
+        //Debug.Log(bullet.GetComponent<TrackShot>().ProjectileSpeed);
+        bullet.GetComponent<TrackShot>().ProjectileSpeed = 250f;
         bullet.GetComponent<TrackShot>().target = endPoint;
+
     }
     public void CalculateHitOnEnemy(int playerNumber, int enemyNumber)
     {

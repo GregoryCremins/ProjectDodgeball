@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Identifiers : MonoBehaviour
 {
-    public int playerID;
+    public int playerID = -1;
+    public int enemyID = -1;
     // Start is called before the first frame update
     void Start()
     {

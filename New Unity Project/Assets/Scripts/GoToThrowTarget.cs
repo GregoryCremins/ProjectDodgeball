@@ -11,6 +11,7 @@ public class GoToThrowTarget : MonoBehaviour
     {
             myBoardState.myEnemyTargetReticle.SetActive(true);
 
+            //myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.GetCurrentPlayerNumber()].actionTaken = true;
             myBoardState.myControlsObject.GetComponent<Controls>().currentTarget = myBoardState.myEnemyTargetReticle;
             myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().backOption = gameObject;
             myBoardState.myEnemyTargetReticle.GetComponent<Movable2>().myBoardState = myBoardState;

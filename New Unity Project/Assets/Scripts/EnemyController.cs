@@ -88,6 +88,10 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    public void SetDefense(int enemyNumber, string defenseChoice)
+    {
+        enemyList[enemyNumber].defenseOption = defenseChoice;
+    }
     public void RenderEnemies()
     {
         int yOffset = 0;
@@ -111,7 +115,7 @@ public class EnemyController : MonoBehaviour
         Transform t = null;
         foreach(GameObject g in activeEnemies)
         {
-            if(g.GetComponent<Identifiers>().playerID == enemyNumber)
+            if(g.GetComponent<Identifiers>().enemyID == enemyNumber)
             {
                 t = g.transform;
             }
