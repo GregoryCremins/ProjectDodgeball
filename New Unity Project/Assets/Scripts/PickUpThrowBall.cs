@@ -9,21 +9,24 @@ public class PickUpThrowBall : MonoBehaviour,Actionable
     public string currentOption = "Pick Up";
     public GameObject myTMP;
     public TextMeshProUGUI myText;
+    public int currentPlayerNumber;
+    public int throwCost = 20;
     public void performAction()
     {
-        if (myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].actionTaken == false)
+        currentPlayerNumber = myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber;
+        if (currentPlayerNumber >= 0 && myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].actionTaken == false)
         {
-            if (currentOption == "Pick Up" && myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >= 0)
+            if (currentOption == "Pick Up")
             {
-                Debug.Log("PICK IT UP");
-                Debug.Log(myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber);
+                //Debug.Log("PICK IT UP");
+                //Debug.Log(myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber);
                 myBoardState.checkBallPickup(myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber);
             }
-            if (currentOption == "Throw" && myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber >= 0)
+            if (myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].energy > throwCost &&currentOption == "Throw" && currentPlayerNumber >= 0)
             {
                 gameObject.GetComponent<GoToThrowTarget>().PerformAction();
             }
-            myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber].actionTaken = true;
+            myBoardState.playerControllerObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].actionTaken = true;
         }
         
     }

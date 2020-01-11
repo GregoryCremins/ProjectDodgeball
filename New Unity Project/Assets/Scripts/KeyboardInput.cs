@@ -42,6 +42,10 @@ public class KeyboardInput : MonoBehaviour
             myControlObject.AdvanceOption();
         }
 
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            myControlObject.BackOption();
+        }
 
     }
 }

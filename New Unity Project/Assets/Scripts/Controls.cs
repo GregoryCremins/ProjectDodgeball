@@ -26,7 +26,7 @@ public class Controls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
-        if(lastMenuTarget != currentTarget && currentTarget.GetComponent<Controllable>() != null)
+        if(lastMenuTarget != currentTarget && currentTarget.GetComponent<Controllable>() != null && currentTarget.GetComponent<SubMenuOption>() == null)
         {
             lastMenuTarget = currentTarget;
         }
@@ -117,6 +117,14 @@ public class Controls : MonoBehaviour {
         if (currentTarget.GetComponent<Actionable>() != null)
         {
             currentTarget.GetComponent<Actionable>().performAction();
+            if (currentTarget.GetComponent<SubMenuOption>() != null)
+            {
+                //Debug.Log("RESET SHIT");
+                currentTarget.GetComponent<Controllable>().UnHighlight();
+                lastMenuTarget.GetComponent<SubMenuController>().DeactivateAll();
+                currentTarget = lastMenuTarget;
+                currentTarget.GetComponent<Controllable>().Highlight();
+            }
         }
         else if (currentTarget.GetComponent<Movable>() != null)
         {
@@ -126,10 +134,27 @@ public class Controls : MonoBehaviour {
         {
                 currentTarget.GetComponent<Movable2>().ThrowBall();
         }
+        else if(currentTarget.GetComponent<SubMenuController>() != null)
+        {
+            currentTarget.GetComponent<SubMenuController>().ActivateAll();
+            GameObject myTestSubject = currentTarget.GetComponent<SubMenuController>().mySubmenuOptions[0];
+            myTestSubject.GetComponent<Controllable>().Highlight();
+            currentTarget.GetComponent<Controllable>().UnHighlight();
+            currentTarget = myTestSubject;
+        }
+       
+
 
     }
     public void BackOption()
     {
-
+        if (currentTarget.GetComponent<SubMenuOption>() != null)
+        {
+            currentTarget.GetComponent<Controllable>().UnHighlight();
+            lastMenuTarget.GetComponent<SubMenuController>().DeactivateAll();
+       
+            currentTarget = lastMenuTarget;
+            currentTarget.GetComponent<Controllable>().Highlight();
+        }
     }
 }

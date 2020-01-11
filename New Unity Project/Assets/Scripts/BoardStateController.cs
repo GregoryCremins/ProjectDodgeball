@@ -163,6 +163,10 @@ public class BoardStateController : MonoBehaviour
         return -1;
     }
 
+    public int GetCurrentPlayerNumber()
+    {
+       return playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber;
+    }
     //enemy Positionals
     public Vector3 getPositionOfEnemy(int enemyNumber)
     {
@@ -215,14 +219,17 @@ public class BoardStateController : MonoBehaviour
         myGrid[x, y].enemyNumberHere = -1;
     }
 
-
-    public void MovePlayer()
+    public int CheckIfMovePlayer(int moveDistance)
+    {
+        return playerControllerObject.GetComponent<PlayerVariableController>().checkIfEnoughEnergy(GetCurrentPlayerNumber(),moveDistance);
+    }
+    public void MovePlayer(int energyLoss)
     {
         int newX = myMovementReticle.GetComponent<Movable>().xCoord;
         int newY = myMovementReticle.GetComponent<Movable>().yCoord;
-        Debug.Log(playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber);
+        //Debug.Log(playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber);
         EmptySpace(getGridXOfPlayer(playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber), getGridYOfPlayer(playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber));
-        playerControllerObject.GetComponent<ActivePlayerController>().movePlayer(gridRenderSystem.GetComponent<GridRenderer>().myRenderedGrid[newX,newY]);
+        playerControllerObject.GetComponent<ActivePlayerController>().movePlayer(gridRenderSystem.GetComponent<GridRenderer>().myRenderedGrid[newX,newY],energyLoss);
         myGrid[newX, newY].occupied = true;
         myGrid[newX, newY].playerNumberHere = playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber;        
     }
@@ -234,7 +241,7 @@ public class BoardStateController : MonoBehaviour
         {
             int myCurrentX = getGridXOfPlayer(playerNumber);
             int myCurrentY = getGridYOfPlayer(playerNumber);
-            Debug.Log(myGrid[myCurrentX, myCurrentY].ballNumberHere);
+            //Debug.Log(myGrid[myCurrentX, myCurrentY].ballNumberHere);
             if (myGrid[myCurrentX,myCurrentY].ballNumberHere >= 0)
             {
                 int ballNumber = myGrid[myCurrentX, myCurrentY].ballNumberHere;

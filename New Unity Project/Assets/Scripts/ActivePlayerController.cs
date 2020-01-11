@@ -9,10 +9,12 @@ public class ActivePlayerController : MonoBehaviour
     public int currentPlayerNumber;
     public GameObject currentPlayerTarget;
     public GameObject currentNamePlate;
+    public PlayerVariableController myStats;
     // Start is called before the first frame update
     void Start()
     {
         currentPlayerNumber = -1;
+        myStats = gameObject.GetComponent<PlayerVariableController>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,7 @@ public class ActivePlayerController : MonoBehaviour
             
             currentNamePlate = waitingPlayerCards[0];
             currentPlayerNumber = currentNamePlate.GetComponent<NamePlateController>().myPlayerNumber;
+            gameObject.GetComponent<PlayerVariableController>().AddEnergy(currentPlayerNumber);
             gameObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].resetActions();
             currentPlayerTarget = gameObject.GetComponent<PlayerSpawn>().myPlayers[currentPlayerNumber];
             waitingPlayerCards.RemoveAt(0);
@@ -63,14 +66,33 @@ public class ActivePlayerController : MonoBehaviour
         ResetStuff();
     }
 
-    public void movePlayer(GameObject gridObject)
+    public void movePlayer(GameObject gridObject, int energyLoss)
     {
-        
-        Transform t = gridObject.transform;
-        Vector3 localOffset = new Vector3(1f, -2f, -20f);
-        Vector3 spawnPosition = t.position + localOffset;
-        //currentPlayerTarget.transform.position = spawnPosition;
-        gameObject.GetComponent<PlayerSpawn>().activePlayers[currentPlayerNumber].transform.position = spawnPosition;
-        //currentPlayerTarget.transform.position = new Vector3(15, 15);
+            Transform t = gridObject.transform;
+            Vector3 localOffset = new Vector3(1f, -2f, -20f);
+            Vector3 spawnPosition = t.position + localOffset;
+            gameObject.GetComponent<PlayerSpawn>().activePlayers[currentPlayerNumber].transform.position = spawnPosition;
+            gameObject.GetComponent<PlayerVariableController>().subtractFromEnergy(currentPlayerNumber, energyLoss);
+            gameObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].moved = true;
+    }
+
+    public void PrepCatch()
+    {
+        if (currentPlayerNumber >= 0)
+        {
+            gameObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].ChooseCatch();
+
+            UnhighlightPlayerTile();
+            currentNamePlate.GetComponent<InitiativeControlller>().ResetInitiative();
+            ResetStuff();
+        }
+    }
+    public void PrepDodge()
+    {
+        gameObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].ChooseCatch();
+
+        UnhighlightPlayerTile();
+        currentNamePlate.GetComponent<InitiativeControlller>().ResetInitiative();
+        ResetStuff();
     }
 }

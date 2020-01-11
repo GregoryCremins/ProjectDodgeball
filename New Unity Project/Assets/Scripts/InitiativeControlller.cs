@@ -11,12 +11,18 @@ public class InitiativeControlller : MonoBehaviour
     public bool flash = false;
     public bool waitForColorChange = false;
     public GameObject playerController;
+    private PlayerVariableController myVariableController;
     public bool addedToWaiting;
+    public int playerNumber;
     // Start is called before the first frame update
     void Start()
     {
         mySlider = gameObject.GetComponent<Slider>();
         InvokeRepeating("AddToBar", 0, .01f);
+        myVariableController = playerController.GetComponent<PlayerVariableController>();
+        //Debug.Log(myVariableController.myTeam[playerNumber].enduranceStat);
+        IncrementAmount = myVariableController.myTeam[playerNumber].enduranceStat / 10000;
+        
     }
 
     // Update is called once per frame
@@ -26,6 +32,7 @@ public class InitiativeControlller : MonoBehaviour
         {
             addedToWaiting = true;
             playerController.GetComponent<ActivePlayerController>().AddToWaiting(this.gameObject);
+           
         }
         
     }
@@ -48,8 +55,10 @@ public class InitiativeControlller : MonoBehaviour
 
     void AddToBar()
     {
-        if (mySlider.value < 1) ;
-        mySlider.value = mySlider.value + IncrementAmount;
+        if (mySlider.value < 1)
+        {
+            mySlider.value = mySlider.value + IncrementAmount;
+        }
     }
 
     void ChangeColor()
