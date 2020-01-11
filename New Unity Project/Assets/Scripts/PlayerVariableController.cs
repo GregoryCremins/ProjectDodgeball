@@ -66,6 +66,27 @@ public class PlayerVariableController : MonoBehaviour
         
     }
 
+    public string GetDefenseOption(int playerNumber)
+    {
+        return myTeam[playerNumber].defenseActionChosen;
+    }
+
+    public int GetDefenseStat(string targetDefense, int playerNumber)
+    {
+        if(targetDefense == "Catch")
+        {
+            return myTeam[playerNumber].powerStat;
+        }
+        else if (targetDefense == "Dodge")
+        {
+            return myTeam[playerNumber].agilityStat;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
     public void subtractFromEnergy(int playerNumber, int addValue)
     {
         if(myTeam[playerNumber].energy <= addValue)
@@ -133,7 +154,23 @@ public class PlayerVariableController : MonoBehaviour
         myTeam[playerNumber].moved = false;
 }
 
+    public void EliminatePlayer(int playerNumber)
+    {
 
+            myTeam[playerNumber].eliminated = true;
+        gameObject.GetComponent<PlayerSpawn>().activePlayers[playerNumber].SetActive(false);
+    }
+
+    public bool CheckForEnd()
+    {
+        bool returnVal = true;
+        for (int i = 0; i <myTeam.Count; i++)
+        {
+            if (!myTeam[i].eliminated)
+                returnVal = false;
+        }
+        return returnVal;
+    }
 
 
 }

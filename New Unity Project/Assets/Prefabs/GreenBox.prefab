@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7027999034013976151}
   - component: {fileID: 6509065175867350244}
+  - component: {fileID: 1968350624697471150}
   m_Layer: 0
   m_Name: GreenBox
   m_TagString: Untagged
@@ -80,3 +81,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1968350624697471150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7147537910379768574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53efe262cd277a149b7ce436397ffe3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerID: 1

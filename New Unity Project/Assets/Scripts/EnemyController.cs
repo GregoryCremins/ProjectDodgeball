@@ -8,9 +8,9 @@ public class EnemyController : MonoBehaviour
     [System.Serializable]
     public class Enemy
     {
-        public int dodgeStat;
-        public int powerStat;
-        public int enduranceStat;
+        public float agilityStat;
+        public float powerStat;
+        public float enduranceStat;
         public string defenseOption = "None";
         public int xPosn;
         public int yPosn;
@@ -20,7 +20,7 @@ public class EnemyController : MonoBehaviour
 
         public Enemy(int newX, int newY)
         {
-            dodgeStat = 50;
+            agilityStat = 50;
             powerStat = 50;
             enduranceStat = 50;
             energy = 100;
@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
 
         public Enemy(int newX, int newY, int newDod, int newPow, int newEnd)
         {
-            dodgeStat = newDod;
+            agilityStat = newDod;
             powerStat = newPow;
             enduranceStat = newEnd;
             energy = 100;
@@ -51,6 +51,12 @@ public class EnemyController : MonoBehaviour
         public void getBall(int myNewBall)
         {
             hasBall = myNewBall;
+        }
+
+        public void SetXYCoord(int xCoord, int yCoord)
+        {
+            xPosn = xCoord;
+            yPosn = yCoord;
         }
 
     }
@@ -100,13 +106,38 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-
+    public Transform GetEnemyTransform(int enemyNumber)
+    {
+        Transform t = null;
+        foreach(GameObject g in activeEnemies)
+        {
+            if(g.GetComponent<Identifiers>().playerID == enemyNumber)
+            {
+                t = g.transform;
+            }
+        }
+        return t;
+    }
+    public void MoveEnemy(int enemyNumber, int xCoord, int yCoord)
+    {
+        enemyList[enemyNumber].SetXYCoord(xCoord, yCoord);
+        Transform t = myGridScript.myRenderedGrid[xCoord,yCoord].transform;
+        //Debug.Log(t.position);
+        Vector3 localOffset = new Vector3(1f, -2f, -20f);
+        Vector3 spawnPosition = t.position + localOffset;
+        activeEnemies[enemyNumber].transform.position = spawnPosition;
+    }
     public string GetDefenseOption(int EnemyNumber)
     {
         return enemyList[EnemyNumber].defenseOption;
     }
 
-    public int GetDefenseStat(string defenseName, int enemyNumber)
+    public float GetPowerStat(int EnemyNumber)
+    {
+        return enemyList[EnemyNumber].powerStat;
+    }
+
+    public float GetDefenseStat(string defenseName, int enemyNumber)
     {
         if(defenseName == "Catch" || defenseName == "Block")
         {
@@ -114,13 +145,13 @@ public class EnemyController : MonoBehaviour
         }
         if(defenseName == "Dodge")
         {
-            return enemyList[enemyNumber].dodgeStat;
+            return enemyList[enemyNumber].agilityStat;
         }
         else
         {
             if(enemyList[enemyNumber].energy > 50)
             {
-                return enemyList[enemyNumber].dodgeStat / 2;
+                return enemyList[enemyNumber].agilityStat / 2;
             }
             else
             {
