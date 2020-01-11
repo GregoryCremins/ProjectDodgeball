@@ -1214,6 +1214,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myTeam: []
   movementConstant: 20
+  walkSpeed: 5
+  initialSetup: 0
 --- !u!114 &247326688
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -71,7 +71,8 @@ public class ActivePlayerController : MonoBehaviour
             Transform t = gridObject.transform;
             Vector3 localOffset = new Vector3(1f, -2f, -20f);
             Vector3 spawnPosition = t.position + localOffset;
-            gameObject.GetComponent<PlayerSpawn>().activePlayers[currentPlayerNumber].transform.position = spawnPosition;
+            //gameObject.GetComponent<PlayerSpawn>().activePlayers[currentPlayerNumber].transform.position = spawnPosition;
+            gameObject.GetComponent<PlayerVariableController>().UpdatePlayerGlobalLocation(currentPlayerNumber, spawnPosition);
             gameObject.GetComponent<PlayerVariableController>().subtractFromEnergy(currentPlayerNumber, energyLoss);
             gameObject.GetComponent<PlayerVariableController>().myTeam[currentPlayerNumber].moved = true;
     }
