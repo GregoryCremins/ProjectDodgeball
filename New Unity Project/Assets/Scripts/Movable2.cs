@@ -79,6 +79,8 @@ public class Movable2 : MonoBehaviour
     }
     public void ThrowBall()
     {
+        //play animation
+        myBoardState.PlayPlayerAnimation(myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber, "Throw");
 
         //calcuate hit
         myBoardState.CalculateHitOnEnemy(myBoardState.playerControllerObject.GetComponent<ActivePlayerController>().currentPlayerNumber, targetEnemy);

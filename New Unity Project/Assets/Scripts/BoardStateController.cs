@@ -297,7 +297,6 @@ public class BoardStateController : MonoBehaviour
     public void EnemyThrowBall(int myAINumber, int playerTarget)
     {
         //determine if we hit player
-        Debug.Log("SHOOTING");
         ShootBallAtPlayer(myAINumber, playerTarget);
         CalculateHitOnPlayer(myAINumber, playerTarget);
         
@@ -421,6 +420,8 @@ public class BoardStateController : MonoBehaviour
         //hit
         if (toHitVal > toDefendVal)
         {
+            Debug.Log("Enemy: " + enemyNumber);
+            Debug.Log("player: " + playerNumber);
             HitPlayer(myEnemyControllerObject.GetComponent<EnemyController>().enemyList[enemyNumber].hasBall, playerNumber);
         }
         //Defend
@@ -468,5 +469,10 @@ public class BoardStateController : MonoBehaviour
     public void MissPlayer(int ballNumber, int enemyNumber)
     {
 
+    }
+
+    public void PlayPlayerAnimation(int playerNumber, string playerFlag)
+    {
+        playerControllerObject.GetComponent<PlayerVariableController>().SetAnimationFlag(playerNumber, playerFlag);
     }
 }

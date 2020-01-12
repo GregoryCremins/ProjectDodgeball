@@ -15,6 +15,7 @@ public class AnimationController : MonoBehaviour
     {
         myAnimator = myAnimationObject.GetComponent<Animator>();
         InvokeRepeating("CheckWalking", .01f, .01f);
+        InvokeRepeating("ResetFlagVars", 1f, 1f);
         prevPosition = gameObject.GetComponentInParent<Transform>().position;
         // myAnimator.SetBool("Walking", true);
 
@@ -75,10 +76,57 @@ public class AnimationController : MonoBehaviour
         }
     }
 
+    public  void ResetFlagVars()
+    {
+        SetThrow(false);
+        SetCatch(false);
+        SetDodge(false);
+        SetDodge(false);
+        SetPickup(false);
+    }
     public void SetHasBall(bool hasBall)
     {
-        myAnimator.SetBool("Has Ball", hasBall);
+        if (myAnimator != null)
+        {
+            myAnimator.SetBool("Has Ball", hasBall);
+        }
     }
 
+    public void SetEliminated(bool hit)
+    {
+        if (myAnimator != null)
+        {
+            myAnimator.SetBool("Hit", hit);
+        }
+    }
 
+    public void SetThrow(bool throwBool)
+    {
+        if (myAnimator != null)
+        {
+            myAnimator.SetBool("Throw", throwBool);
+        }
+    }
+    public void SetCatch(bool catchBool)
+    {
+        if (myAnimator != null)
+        {
+            myAnimator.SetBool("Catch", catchBool);
+        }
+    }
+
+    public void SetDodge(bool dodgeBool)
+    {
+        if (myAnimator != null)
+        {
+            myAnimator.SetBool("Dodge", dodgeBool);
+        }
+    }
+    public void SetPickup(bool pickupBool)
+    {
+        if (myAnimator != null)
+        {
+            myAnimator.SetBool("Pick Up", pickupBool);
+        }
+    }
 }

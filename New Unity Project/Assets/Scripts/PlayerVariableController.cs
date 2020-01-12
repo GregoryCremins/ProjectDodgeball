@@ -205,7 +205,11 @@ public class PlayerVariableController : MonoBehaviour
     {
 
             myTeam[playerNumber].eliminated = true;
-        gameObject.GetComponent<PlayerSpawn>().activePlayers[playerNumber].SetActive(false);
+        if (gameObject.GetComponent<PlayerSpawn>().activePlayers[playerNumber].GetComponent<AnimationController>() != null)
+        {
+            gameObject.GetComponent<PlayerSpawn>().activePlayers[playerNumber].GetComponent<AnimationController>().SetEliminated(true);
+        }
+        //gameObject.GetComponent<PlayerSpawn>().activePlayers[playerNumber].SetActive(false);
     }
 
     public bool CheckForEnd()
@@ -219,5 +223,14 @@ public class PlayerVariableController : MonoBehaviour
         return returnVal;
     }
 
+    public void SetAnimationFlag(int playerNumber, string playerFlag)
+    {
+        Debug.Log("TRY TO SET " + playerFlag + playerNumber);
+        if(playerFlag == "Throw")
+        {
+            Debug.Log("asas");
+            gameObject.GetComponent<PlayerSpawn>().activePlayers[playerNumber].GetComponent<AnimationController>().SetThrow(true);
+        }
+    }
 
 }
