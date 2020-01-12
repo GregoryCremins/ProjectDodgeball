@@ -225,10 +225,9 @@ public class PlayerVariableController : MonoBehaviour
 
     public void SetAnimationFlag(int playerNumber, string playerFlag)
     {
-        Debug.Log("TRY TO SET " + playerFlag + playerNumber);
+        //Debug.Log("TRY TO SET " + playerFlag + playerNumber);
         if(playerFlag == "Throw")
         {
-            Debug.Log("asas");
             gameObject.GetComponent<PlayerSpawn>().activePlayers[playerNumber].GetComponent<AnimationController>().SetThrow(true);
         }
     }

@@ -9,9 +9,13 @@ public class Controls : MonoBehaviour {
     public GameObject lastMenuTarget;
     public GameObject controllerObject;
     public GameObject mouseAndKeyBoardObject;
+    public AudioSource myMenuBeep;
+    public AudioSource myMenuBackBeep;
     // Use this for initialization
     void Start() {
         currentTarget = startTarget;
+        myMenuBeep = gameObject.GetComponents<AudioSource>()[0];
+        myMenuBackBeep = gameObject.GetComponents<AudioSource>()[1];
         if (PlayerPrefs.GetInt("ControllerEnabled") == 1)
         {
             //set controller object
@@ -117,9 +121,11 @@ public class Controls : MonoBehaviour {
         //Debug.Log("CURRENT TARGET : " + currentTarget);
         if (currentTarget.GetComponent<Actionable>() != null)
         {
+            myMenuBeep.Play();
             currentTarget.GetComponent<Actionable>().performAction();
             if (currentTarget.GetComponent<SubMenuOption>() != null)
             {
+                
                 //Debug.Log("RESET SHIT");
                 currentTarget.GetComponent<Controllable>().UnHighlight();
                 lastMenuTarget.GetComponent<SubMenuController>().DeactivateAll();
@@ -129,14 +135,17 @@ public class Controls : MonoBehaviour {
         }
         else if (currentTarget.GetComponent<Movable>() != null)
         {
-                currentTarget.GetComponent<Movable>().PutPersonHere();
+            myMenuBeep.Play();
+            currentTarget.GetComponent<Movable>().PutPersonHere();
         }
         else if (currentTarget.GetComponent<Movable2>() != null)
         {
-                currentTarget.GetComponent<Movable2>().ThrowBall();
+            myMenuBeep.Play();
+            currentTarget.GetComponent<Movable2>().ThrowBall();
         }
         else if(currentTarget.GetComponent<SubMenuController>() != null)
         {
+            myMenuBeep.Play();
             currentTarget.GetComponent<SubMenuController>().ActivateAll();
             GameObject myTestSubject = currentTarget.GetComponent<SubMenuController>().mySubmenuOptions[0];
             myTestSubject.GetComponent<Controllable>().Highlight();
@@ -153,6 +162,7 @@ public class Controls : MonoBehaviour {
 
         if (currentTarget.GetComponent<SubMenuOption>() != null)
         {
+            myMenuBackBeep.Play();
             currentTarget.GetComponent<Controllable>().UnHighlight();
             lastMenuTarget.GetComponent<SubMenuController>().DeactivateAll();
        
@@ -161,6 +171,7 @@ public class Controls : MonoBehaviour {
         }
         if(currentTarget.GetComponent<Movable>() != null)
         {
+            myMenuBackBeep.Play();
             Debug.Log("LAST MENU TARGET: " + lastMenuTarget);
             currentTarget.SetActive(false);
             currentTarget = startTarget;
@@ -168,6 +179,7 @@ public class Controls : MonoBehaviour {
         }
         if (currentTarget.GetComponent<Movable2>() != null)
         {
+            myMenuBackBeep.Play();
             currentTarget.SetActive(false);
             currentTarget = lastMenuTarget;
             currentTarget.GetComponent<Controllable>().Highlight();

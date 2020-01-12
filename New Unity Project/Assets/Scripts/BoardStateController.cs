@@ -60,6 +60,8 @@ public class BoardStateController : MonoBehaviour
     public GameObject myEnemyControllerObject;
     public GameObject ballProjectilePrefab;
     public bool grabbedGrid;
+    public AudioSource pickUpBallSound;
+    public AudioSource catchSound;
 
     // Start is called before the first frame update
     void Start()
@@ -277,6 +279,7 @@ public class BoardStateController : MonoBehaviour
         if (myGrid[targetX,targetY].ballNumberHere != -1)
         {
             //pick up ball
+            pickUpBallSound.Play();
             int ballNumber = myGrid[targetX, targetY].ballNumberHere;
             myEnemyControllerObject.GetComponent<EnemyController>().enemyList[myAINumber].getBall(ballNumber);
             ballControllerObject.GetComponent<BallController>().EnemyPickUpBall(myAINumber, ballNumber);
@@ -335,6 +338,7 @@ public class BoardStateController : MonoBehaviour
             //Debug.Log(myGrid[myCurrentX, myCurrentY].ballNumberHere);
             if (myGrid[myCurrentX,myCurrentY].ballNumberHere >= 0)
             {
+                pickUpBallSound.Play();
                 int ballNumber = myGrid[myCurrentX, myCurrentY].ballNumberHere;
                 playerControllerObject.GetComponent<PlayerVariableController>().myTeam[playerNumber].hasBall = ballNumber;
                 ballControllerObject.GetComponent<BallController>().PickUpBall(playerNumber, ballNumber);
